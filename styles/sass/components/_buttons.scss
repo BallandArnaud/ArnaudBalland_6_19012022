@@ -1,0 +1,16 @@
+.btn {
+    position: relative;
+    border: none;
+    cursor: pointer;
+
+    &--contact {
+        font-size: 20px;
+        font-weight: bold;
+        color: #FFF;
+        padding: 11px;
+        width: 170px;
+        height: 70px;
+        background-color: $primary-background-color;
+        border-radius: 5px;
+    }
+}

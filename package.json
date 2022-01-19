@@ -1,0 +1,19 @@
+{
+  "name": "arnaudballand_6_19012022",
+  "version": "1.0.0",
+  "description": "Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./styles/sass/style.scss ./styles/css/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BallandArnaud/ArnaudBalland_6_19012022.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BallandArnaud/ArnaudBalland_6_19012022/issues"
+  },
+  "homepage": "https://github.com/BallandArnaud/ArnaudBalland_6_19012022#readme"
+}
