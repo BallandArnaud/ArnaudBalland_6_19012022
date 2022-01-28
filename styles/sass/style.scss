@@ -1,6 +1,13 @@
 @import "./utils/variables";
+
+@import "./vendors/normalize";
+
 @import "./base/base";
+
 @import "./layouts/header";
+
 @import "./components/buttons";
+@import "./components/cards";
+
 @import "./pages/homepage";
 @import "./pages/photographer"
