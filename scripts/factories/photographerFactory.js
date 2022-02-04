@@ -20,5 +20,5 @@ function photographerFactory(data) {
         `
     }
 
-    return { name, picture, getUserCardDOM }
+    return {getUserCardDOM }
 }

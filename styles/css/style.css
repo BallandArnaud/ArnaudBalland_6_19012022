@@ -344,15 +344,16 @@ body {
 
 h1 {
   color: #901C1C;
-  margin-right: 100px;
 }
 
 header {
+  height: 90px;
+}
+header .container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: 90px;
 }
 header .logo {
   height: 50px;
@@ -446,6 +447,33 @@ header .logo {
   background-color: #FAFAFA;
   height: 300px;
   margin: 0 100px;
+  display: flex;
+}
+.photograph-header__name {
+  color: #D3573C;
+}
+.photograph-header__location {
+  color: #901C1C;
+  font-size: 1.2rem;
+}
+.photograph-header__picture {
+  object-fit: cover;
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+}
+
+.photograph-medias {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 70px;
+  margin: 100px 0;
+}
+.photograph-medias img, .photograph-medias video {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  overflow: hidden;
 }
 
 .modal {

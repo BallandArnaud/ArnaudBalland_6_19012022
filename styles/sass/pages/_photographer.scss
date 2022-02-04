@@ -6,6 +6,39 @@
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
+    display: flex;
+
+    &__name {
+        color: $primary-text-color;
+    }
+
+    &__location {
+        color: $secondary-text-color;
+        font-size: 1.2rem;
+    }
+
+    &__picture {
+        object-fit: cover;
+        width: 200px;
+        height: 200px;
+        border-radius: 100%;
+    }
+}
+
+.photograph-medias {
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 70px;
+    margin: 100px 0;
+
+    img, video {
+        width: 300px;
+        height: 300px;
+        object-fit: cover;
+        overflow: hidden;
+    }
+
 }
 
 .modal {

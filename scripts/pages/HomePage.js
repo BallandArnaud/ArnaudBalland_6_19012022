@@ -1,4 +1,5 @@
-class App {
+class HomePage {
+
     constructor() {
         this.$photographerWrapper = document.querySelector(".photographer_section")
         this.photographersApi = new PhotographerApi("/data/photographers.json")
@@ -16,5 +17,5 @@ class App {
     }
 }
 
-const app = new App()
+const app = new HomePage()
 app.main()

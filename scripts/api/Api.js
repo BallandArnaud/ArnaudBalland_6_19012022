@@ -17,12 +17,12 @@ class PhotographerApi extends Api {
     }
 
     async getPhotographers() {
-        return await this.get()
+        return this.get()
         .then(res => res.photographers) 
     }
 
     async getMedias() {
-        return await this.get()
+        return this.get()
         .then(res => res.media)
     }
 }
