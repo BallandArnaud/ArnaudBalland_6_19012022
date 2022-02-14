@@ -4,7 +4,6 @@ class MediasFactory {
     }
 
     forPhotographer(photographer) {
-        
         if(this.media.image){
             return new ImageCard(this.media, photographer).createElement()
         } else if (this.media.video){

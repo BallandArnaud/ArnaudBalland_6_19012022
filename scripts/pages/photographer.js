@@ -1,15 +1,13 @@
 //Mettre le code JavaScript lié à la page photographer.html
-
 class PhotographerPage {
+
     constructor(api) {
         this.api = api
 
         // Get DOM Elements
-        this.$mediasWrapper = document.querySelector('.photograph-medias')
         this.$photographerInformationsWrapper = document.querySelector('.photograph-header')
-        this.$photographerName = document.querySelector('.photograph-header__name')
-        this.$photographerLocation = document.querySelector('.photograph-header__location')
-        this.$photographerTagline = document.querySelector('.photograph-header__tagline')
+        this.$mediasWrapper = document.querySelector('.photograph-medias')
+        this.$filter = document.querySelector('.filter')
     }
 
     async init() {
@@ -17,9 +15,15 @@ class PhotographerPage {
         const params = new URLSearchParams(window.location.search)
         this.photographerId = parseInt(params.get("id"),10)
 
-        this.getPhotographerMedias()
         this.displayPhotographerInformations()
+        this.getPhotographerMedias()
         this.displayPhotographerMedias()
+
+        
+
+        const Sorter = new SorterForm(await this.getPhotographerMedias(), await this.getPhotographerInformations())
+        Sorter.render()
+        
     }
 
     // Function to get all informations of the chosen photographer
@@ -37,31 +41,22 @@ class PhotographerPage {
     }
 
     // Function diplay all informations of the chosen photographer
-    async displayPhotographerInformations(){
+    async displayPhotographerInformations() {
         const informations = await this.getPhotographerInformations()
 
-        this.$photographerName.innerHTML = informations.name
-        this.$photographerLocation.innerHTML = informations.city + ", " + informations.country
-        this.$photographerTagline.innerHTML = informations.tagline
-        
-        const picture = document.createElement('img')
-        picture.classList.add('photograph-header__picture')
-        picture.src = '/assets/photographers/' + informations.portrait
-        this.$photographerInformationsWrapper.appendChild(picture)
+        this.$photographerInformationsWrapper.innerHTML = new photographerInformation(informations).render()
     }
 
     // Function diplay all medias of the chosen photographer
-    async displayPhotographerMedias(){
+    async displayPhotographerMedias() {
         const medias = await this.getPhotographerMedias()
-        const photographInfos = await this.getPhotographerInformations()
+        const photographerInfos = await this.getPhotographerInformations()
 
         this.$mediasWrapper.innerHTML = medias
-        .map(media => new MediasFactory(media).forPhotographer(photographInfos))
+        .map(media => new MediasFactory(media).forPhotographer(photographerInfos))
         .join('')
     }
-
 }
-
 
 // Get Json Data
 const api = new PhotographerApi("/data/photographers.json")

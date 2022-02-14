@@ -15,6 +15,7 @@ class VideoCard {
                     Sorry, your browser doesn't support embedded videos.
                 </video>
                 <p>${this.media.title} - ${this.media.likes} likes</p>
+                <p>${this.media.date}</p>
             </div>
         `
     }
