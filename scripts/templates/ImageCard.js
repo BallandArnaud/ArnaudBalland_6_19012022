@@ -8,9 +8,9 @@ class ImageCard {
         const photographerName = this.photographer.name.split(' ')[0]
         
         return `
-            <div>
+            <div class="media" data-id="${this.media.id}">
                 <img src="/assets/images/${photographerName}/${this.media.image}" />
-                <p>${this.media.title} - ${this.media.likes} likes</p>
+                <p><span class="media__description">${this.media.title}</span> - ${this.media.likes} <i class="fa-solid fa-heart"></i></p>
                 <p>${this.media.date}</p>
             </div>
         `

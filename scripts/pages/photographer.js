@@ -7,7 +7,8 @@ class PhotographerPage {
         // Get DOM Elements
         this.$photographerInformationsWrapper = document.querySelector('.photograph-header')
         this.$mediasWrapper = document.querySelector('.photograph-medias')
-        this.$filter = document.querySelector('.filter')
+        this.$filter = document.querySelector('.photograph-filter')
+        this.$bottomPhotographerInformations = document.querySelector('.photograph-informations')
     }
 
     async init() {
@@ -16,14 +17,20 @@ class PhotographerPage {
         this.photographerId = parseInt(params.get("id"),10)
 
         this.displayPhotographerInformations()
-        this.getPhotographerMedias()
-        this.displayPhotographerMedias()
+        const photographerMedias = await this.getPhotographerMedias()
+        const photographerInformations = await this.getPhotographerInformations()
 
-        
-
-        const Sorter = new SorterForm(await this.getPhotographerMedias(), await this.getPhotographerInformations())
+        const Sorter = new SorterForm(photographerMedias, photographerInformations, 'popularity')
         Sorter.render()
-        
+        await Sorter.sorterMedias();
+        const sortedMedias = Sorter.getSortedMedias()
+
+        document.querySelectorAll('.media').forEach(media => media.addEventListener('click', e => {
+            const mediaId = media.getAttribute('data-id')
+            const lightbox = new Lightbox(sortedMedias, mediaId, photographerInformations)
+            lightbox.init()
+        }))
+
     }
 
     // Function to get all informations of the chosen photographer
@@ -45,6 +52,7 @@ class PhotographerPage {
         const informations = await this.getPhotographerInformations()
 
         this.$photographerInformationsWrapper.innerHTML = new photographerInformation(informations).render()
+        this.$bottomPhotographerInformations.innerHTML = new photographerInformation(informations).renderBottom()
     }
 
     // Function diplay all medias of the chosen photographer

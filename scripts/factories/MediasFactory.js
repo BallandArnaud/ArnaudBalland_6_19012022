@@ -13,4 +13,14 @@ class MediasFactory {
         }
     }
 
+    forLightbox (photographer) {
+        if (this.media.image) {
+            return new ImageLightbox(this.media, photographer).createElement()
+        } else if (this.media.video){
+            return new VideoLightbox(this.media, photographer).createElement()
+        } else {
+            throw 'Unknown type format'
+        }
+    }
+
 }

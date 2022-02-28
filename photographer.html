@@ -4,21 +4,26 @@
 <head>
   <link href="styles/css/style.css" rel="stylesheet" type="text/css" />
   <meta charset="utf-8">
-  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <!-- <link rel="icon" type="image/png" href="assets/favicon.png"> -->
   <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
-  <title>Fisheye - photographe </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <title>Fisheye - photographe</title>
 </head>
 
 <body>
   <header>
-    <a href="/index.html">
-      <img src="assets/logo/logo.png" class="logo" />
-    </a>
+    <div class="container">
+      <a href="/index.html">
+        <img src="assets/logo/logo.png" class="logo" />
+      </a>
+    </div>
   </header>
   <main id="main">
     <div class="photograph-header"></div>
-    <div class="filter"></div>
+    <div class="photograph-filter"></div>
     <div class="photograph-medias"></div>
+    <div class="photograph-informations"></div>
   </main>
   <div id="contact_modal">
     <div class="modal">
@@ -49,9 +54,13 @@
   <script src="/scripts/templates/VideoCard.js"></script>
   <script src="/scripts/templates/SorterForm.js"></script>
   <script src="/scripts/templates/PhotographerInformations.js"></script>
+  <script src="/scripts/templates/Lightbox.js"></script>
+  <script src="/scripts/templates/ImageLightbox.js"></script>
+  <script src="/scripts/templates/VideoLightbox.js"></script>
 
   <!-- Factories -->
   <script src="/scripts/factories/MediasFactory.js"></script>
+  
   <script src="/scripts/pages/photographer.js"></script>
 </body>
 

@@ -7,6 +7,8 @@
     height: 300px;
     margin: 0 100px;
     display: flex;
+    justify-content: space-around;
+    align-items: center;
 
     &__name {
         color: $primary-text-color;
@@ -25,20 +27,42 @@
     }
 }
 
+.photograph-filter {
+    margin: 20px 100px 0;
+}
+
 .photograph-medias {
 
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 70px;
-    margin: 100px 0;
+    margin: 100px;
+    color: $secondary-text-color;
+    font-size: 1.5rem;
 
     img, video {
         width: 300px;
         height: 300px;
         object-fit: cover;
         overflow: hidden;
+        cursor: pointer;
     }
+}
 
+.photograph-informations {
+    position: fixed;
+    right: 36px;
+    bottom: 0;
+    background-color: $secondary-background-color;
+    padding: 20px;
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+
+    .totalLikes {
+        margin-right: 60px;
+    }
 }
 
 .modal {

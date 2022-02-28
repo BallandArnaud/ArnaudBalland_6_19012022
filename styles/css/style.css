@@ -346,6 +346,11 @@ h1 {
   color: #901C1C;
 }
 
+.container {
+  width: 90%;
+  margin: auto;
+}
+
 header {
   height: 90px;
 }
@@ -357,7 +362,6 @@ header .container {
 }
 header .logo {
   height: 50px;
-  margin-left: 100px;
 }
 
 .btn {
@@ -366,7 +370,7 @@ header .logo {
   cursor: pointer;
 }
 .btn--contact {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   color: #FFF;
   padding: 11px;
@@ -388,7 +392,7 @@ header .logo {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: #D3573C;
+  background-color: #DB8876;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   border-radius: inherit;
@@ -412,7 +416,7 @@ header .logo {
   width: 200px;
 }
 .card-photographer__name {
-  color: #D3573C;
+  color: #DB8876;
   font-size: 2.25rem;
   margin: 20px 0 10px 0;
 }
@@ -422,6 +426,67 @@ header .logo {
 }
 .card-photographer__pricePerDay {
   color: #525252;
+}
+
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #FAFAFA;
+  z-index: 10;
+}
+.lightbox button {
+  border: none;
+  opacity: 0.5;
+  cursor: pointer;
+  text-indent: -4000px;
+  transition: opacity 0.3s;
+}
+.lightbox button:hover {
+  opacity: 1;
+}
+.lightbox__close {
+  background: url("../../../assets/icons/close.svg") center center/100% 100% no-repeat;
+  width: 42px;
+  height: 42px;
+  position: fixed;
+  top: 35px;
+  right: 35px;
+  z-index: 12;
+}
+.lightbox__prev, .lightbox__next {
+  background: url("../../../assets/icons/arrow.svg") center center/24px 44px no-repeat;
+  width: 96px;
+  height: 96px;
+  position: fixed;
+  top: 50%;
+  margin: -22px;
+  z-index: 11;
+}
+.lightbox__prev {
+  transform: rotate(180deg);
+  right: auto;
+  left: 0;
+}
+.lightbox__next {
+  right: 0;
+}
+.lightbox__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 100px;
+  height: 100vh;
+}
+.lightbox__container img, .lightbox__container video {
+  max-width: 100%;
+  height: 100%;
+}
+.lightbox__container p {
+  color: #901C1C;
 }
 
 .photographer_section {
@@ -448,9 +513,11 @@ header .logo {
   height: 300px;
   margin: 0 100px;
   display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 .photograph-header__name {
-  color: #D3573C;
+  color: #DB8876;
 }
 .photograph-header__location {
   color: #901C1C;
@@ -463,17 +530,39 @@ header .logo {
   border-radius: 100%;
 }
 
+.photograph-filter {
+  margin: 20px 100px 0;
+}
+
 .photograph-medias {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 70px;
-  margin: 100px 0;
+  margin: 100px;
+  color: #901C1C;
+  font-size: 1.5rem;
 }
 .photograph-medias img, .photograph-medias video {
   width: 300px;
   height: 300px;
   object-fit: cover;
   overflow: hidden;
+  cursor: pointer;
+}
+
+.photograph-informations {
+  position: fixed;
+  right: 36px;
+  bottom: 0;
+  background-color: #DB8876;
+  padding: 20px;
+  border-radius: 5px 5px 0 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.5rem;
+}
+.photograph-informations .totalLikes {
+  margin-right: 60px;
 }
 
 .modal {
