@@ -23,14 +23,19 @@ class PhotographerPage {
         const Sorter = new SorterForm(photographerMedias, photographerInformations, 'popularity')
         Sorter.render()
         await Sorter.sorterMedias();
-        const sortedMedias = Sorter.getSortedMedias()
 
-        document.querySelectorAll('.media').forEach(media => media.addEventListener('click', e => {
-            const mediaId = media.getAttribute('data-id')
-            const lightbox = new Lightbox(sortedMedias, mediaId, photographerInformations)
-            lightbox.init()
-        }))
+        this.$mediasWrapper.addEventListener('click', e => {
+            const sortedMedias = Sorter.getSortedMedias()
+            if(e.target && e.target.parentNode.classList.contains("media")) {
+                const mediaId = e.target.parentNode.getAttribute('data-id')
+                const lightbox = new Lightbox(sortedMedias, mediaId, photographerInformations)
+                lightbox.init()
+            }
+        })
 
+        document.getElementById('contactBtn').addEventListener('click', () => {
+            document.getElementById('contact_modal').innerHTML = new ModalContact(photographerInformations).render()
+        })
     }
 
     // Function to get all informations of the chosen photographer

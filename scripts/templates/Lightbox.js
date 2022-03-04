@@ -1,4 +1,4 @@
-class Lightbox {
+ class Lightbox {
 
     constructor (photographerMedias, mediaId, photographerInformations) {
         this.medias = photographerMedias
@@ -10,9 +10,23 @@ class Lightbox {
     init () {
         this.currentMedia = this.medias.find(media => media.id === this.mediaId)
         this.$main.appendChild(this.render(this.currentMedia))
-        this.closeLightbox()
-        this.prevMedia()
-        this.nextMedia()
+
+        document.querySelector('.lightbox__close').addEventListener('click', (e) => {
+            this.closeLightbox()
+            window.removeEventListener('keyup', this.keyboardHandler)
+        })
+
+        document.querySelector('.lightbox__prev').addEventListener('click', () => {
+            this.prevMedia()
+        })
+
+        document.querySelector('.lightbox__next').addEventListener('click', () => {
+            this.nextMedia()
+        })
+
+        this.eventHandler = e => this.keyboardHandler(e)
+        
+        window.addEventListener("keyup", this.eventHandler, false);
     }
 
     getCurrentMediaIndex(){
@@ -20,50 +34,57 @@ class Lightbox {
     }
 
     closeLightbox () {
-        this.closeButton = document.querySelector('.lightbox__close')
-        this.closeButton.addEventListener('click', () => {
-            this.$main.removeChild(document.querySelector('.lightbox'))
-        })
+        window.removeEventListener('keyup', this.eventHandler)
+        this.$main.removeChild(document.querySelector('.lightbox'))
     }
 
     prevMedia () {
-        this.prevButton = document.querySelector('.lightbox__prev')
-        this.prevButton.addEventListener('click', () => {
-
-            const PrevIndex = this.getCurrentMediaIndex() - 1
-            
-            if (PrevIndex < 0) {
-                this.currentMedia = this.medias[this.medias.length - 1]
-
-            } else {
-                this.currentMedia = this.medias[PrevIndex]
-            }
-            document.querySelector('.lightbox__container').innerHTML = this.changeMedia(this.currentMedia)
-        }) 
+        const PrevIndex = this.getCurrentMediaIndex() - 1
+        
+        if (PrevIndex < 0) {
+            this.currentMedia = this.medias[this.medias.length - 1]
+        } else {
+            this.currentMedia = this.medias[PrevIndex]
+        }
+        document.querySelector('.lightbox__container').innerHTML = this.changeMedia(this.currentMedia)
     }
 
     nextMedia () {
-        this.nextButton = document.querySelector('.lightbox__next')
-        this.nextButton.addEventListener('click', () => {
+        const nextIndex = this.getCurrentMediaIndex() + 1
+        
+        if (nextIndex >= this.medias.length) {
+            this.currentMedia = this.medias[0]
 
-            const nextIndex = this.getCurrentMediaIndex() + 1
-            
-            if (nextIndex >= this.medias.length) {
-                this.currentMedia = this.medias[0]
+        } else {
+            this.currentMedia = this.medias[nextIndex]
+        }
+        document.querySelector('.lightbox__container').innerHTML = this.changeMedia(this.currentMedia)
+    }
 
-            } else {
-                this.currentMedia = this.medias[nextIndex]
-            }
-            document.querySelector('.lightbox__container').innerHTML = this.changeMedia(this.currentMedia)
-        })
+    keyboardHandler(event) {
+        
+        event.preventDefault()
+
+        switch (event.key) {
+            case "ArrowLeft":
+                this.prevMedia()
+                break
+            case "ArrowRight":
+                this.nextMedia()
+                break
+            case "Escape":
+                this.closeLightbox()
+                break
+            default:
+                return
+        }
     }
 
     changeMedia (media) {
         this.image = media.image
         this.description = media.title
         this.photographerName = this.photographerInformations.name.split(' ')[0]
-        const newMedia = new MediasFactory(media).forLightbox(this.photographerInformations)
-        return newMedia
+        return new MediasFactory(media).forLightbox(this.photographerInformations)
     }
 
     render (media) {

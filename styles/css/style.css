@@ -484,9 +484,79 @@ header .logo {
 .lightbox__container img, .lightbox__container video {
   max-width: 100%;
   height: 100%;
+  border-radius: 5px;
 }
 .lightbox__container p {
   color: #901C1C;
+  width: 100%;
+}
+
+.modal {
+  border-radius: 5px;
+  background-color: #DB8876;
+  width: 50%;
+  position: fixed;
+  top: 4%;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 35px;
+  margin: auto;
+}
+.modal__header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+}
+.modal__header h2 {
+  font-size: 64px;
+  font-weight: normal;
+  margin-top: -20px;
+  margin-bottom: 19px;
+}
+.modal__header span {
+  display: inline-block;
+}
+.modal__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+}
+form label {
+  color: #312E2E;
+  font-size: 36px;
+  line-height: 47px;
+}
+form div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: self-start;
+  margin-bottom: 26px;
+}
+form input, form textarea {
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+}
+form input {
+  height: 68px;
+}
+form textarea {
+  height: 170px;
 }
 
 .photographer_section {
@@ -563,60 +633,6 @@ header .logo {
 }
 .photograph-informations .totalLikes {
   margin-right: 60px;
-}
-
-.modal {
-  border-radius: 5px;
-  background-color: #DB8876;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 35px;
-  margin: auto;
-}
-
-.modal header {
-  justify-content: space-between;
-  width: 100%;
-}
-
-.modal header img {
-  cursor: pointer;
-}
-
-.modal header h2 {
-  font-size: 64px;
-  font-weight: normal;
-  text-align: center;
-}
-
-form {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-form label {
-  color: #312E2E;
-  font-size: 36px;
-}
-
-form div {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: self-start;
-  margin-bottom: 26px;
-}
-
-form input {
-  width: 100%;
-  height: 68px;
-  border: none;
-  border-radius: 5px;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -15,7 +15,7 @@ class photographerInformation {
             <p class="photograph-header__location">${this.city}, ${this.country}</p>
             <p class="photograph-header__tagline">${this.tagline}</p>
         </div>
-        <button class="btn btn--contact" onclick="displayModal()">Contactez-moi</button>
+        <button id="contactBtn" class="btn btn--contact" onclick="displayModal()">Contactez-moi</button>
         <img class="photograph-header__picture" src="/assets/photographers/${this.picture}">
         `
     }
