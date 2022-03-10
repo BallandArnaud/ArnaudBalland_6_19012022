@@ -33,9 +33,11 @@
     }
 
     &__close {
+        background-color: transparent;
         position: absolute;
         top: 0;
         right: 0;
+        border: none;
         cursor: pointer;
     }
 }

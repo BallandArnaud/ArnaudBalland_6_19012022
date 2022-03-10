@@ -523,9 +523,11 @@ header .logo {
   display: inline-block;
 }
 .modal__close {
+  background-color: transparent;
   position: absolute;
   top: 0;
   right: 0;
+  border: none;
   cursor: pointer;
 }
 
@@ -574,10 +576,6 @@ form textarea {
   flex-direction: column;
 }
 
-#contact_modal {
-  display: none;
-}
-
 .photograph-header {
   background-color: #FAFAFA;
   height: 300px;
@@ -588,51 +586,85 @@ form textarea {
 }
 .photograph-header__name {
   color: #DB8876;
+  font-size: 3rem;
+  margin: 0;
 }
 .photograph-header__location {
   color: #901C1C;
-  font-size: 1.2rem;
+  font-size: 2rem;
+  margin-top: 1rem;
+  margin: 0;
+}
+.photograph-header__photograph-header__tagline {
+  margin: 19px 0 0 0;
 }
 .photograph-header__picture {
-  object-fit: cover;
   width: 200px;
   height: 200px;
+  object-fit: cover;
   border-radius: 100%;
 }
 
 .photograph-filter {
-  margin: 20px 100px 0;
+  margin: 20px 100px 58px;
 }
 
 .photograph-medias {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 70px;
-  margin: 100px;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 95px;
+  margin: 0 100px 100px;
   color: #901C1C;
   font-size: 1.5rem;
 }
 .photograph-medias img, .photograph-medias video {
-  width: 300px;
+  border-radius: 5px;
+  width: 350px;
   height: 300px;
   object-fit: cover;
   overflow: hidden;
   cursor: pointer;
 }
 
+.media__caption {
+  display: flex;
+  justify-content: space-between;
+}
+.media__description, .media__like {
+  margin: 10px 0 0 0;
+}
+.media__description {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 10px;
+  flex: 1;
+}
+.media .fa-heart {
+  cursor: pointer;
+}
+
 .photograph-informations {
+  background-color: #DB8876;
   position: fixed;
   right: 36px;
   bottom: 0;
-  background-color: #DB8876;
+  width: 378px;
   padding: 20px;
   border-radius: 5px 5px 0 0;
   display: flex;
   justify-content: space-between;
   font-size: 1.5rem;
 }
-.photograph-informations .totalLikes {
+.photograph-informations .likes {
   margin-right: 60px;
+}
+.photograph-informations .totalLikes {
+  margin-right: 10px;
+}
+
+#contact_modal {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -12,7 +12,6 @@ class SorterMedias {
 
             case 'title' :
                 return [...medias].sort((a, b) => a.title.localeCompare(b.title))
-
         }
     }
 }

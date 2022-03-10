@@ -1,8 +1,10 @@
 class SorterForm {
+
     constructor(medias, photographerInfos, sortValue) {
         this.medias = medias
         this.sortValue = sortValue
         this.photographerInfos = photographerInfos
+        
         this.$sorterFormWrapper = document.querySelector('.photograph-filter')
         this.$mediasWrapper = document.querySelector('.photograph-medias')
 
@@ -14,17 +16,12 @@ class SorterForm {
     }
 
     async sorterMedias() {
-        this.clearMediasWrapper()
-        // Check if sorter is not empty or null and the value can be a true value
-        if(!!this.sortValue) {
-            // const sortedMedias = SorterMedias.sorter(this.medias, sorter)
-            this.sortedMedias = this.ProxySorter.sorter(this.medias, this.sortValue)
-            
-            this.$mediasWrapper.innerHTML = this.sortedMedias
-                .map(media => new MediasFactory(media).forPhotographer(this.photographerInfos))
-                .join('')
-                
-        }
+        // this.clearMediasWrapper()
+        this.sortedMedias = this.ProxySorter.sorter(this.medias, this.sortValue)
+        
+        this.$mediasWrapper.innerHTML = this.sortedMedias
+            .map(media => new MediasFactory(media).forPhotographer(this.photographerInfos))
+            .join('')
     }
 
     onChangeSorter() {
@@ -35,9 +32,9 @@ class SorterForm {
         })
     }
 
-    clearMediasWrapper() {
-        this.$mediasWrapper.innerHTML = ''
-    }
+    // clearMediasWrapper() {
+    //     this.$mediasWrapper.innerHTML = ''
+    // }
 
     render() {
         const sorterForm = `

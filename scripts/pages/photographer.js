@@ -16,10 +16,11 @@ class PhotographerPage {
         const params = new URLSearchParams(window.location.search)
         this.photographerId = parseInt(params.get("id"),10)
 
-        this.displayPhotographerInformations()
         const photographerMedias = await this.getPhotographerMedias()
         const photographerInformations = await this.getPhotographerInformations()
 
+        this.displayPhotographerInformations(photographerInformations)
+        
         const Sorter = new SorterForm(photographerMedias, photographerInformations, 'popularity')
         Sorter.render()
         await Sorter.sorterMedias();
@@ -30,45 +31,54 @@ class PhotographerPage {
                 const mediaId = e.target.parentNode.getAttribute('data-id')
                 const lightbox = new Lightbox(sortedMedias, mediaId, photographerInformations)
                 lightbox.init()
+                document.querySelector('.lightbox').focus()
             }
         })
 
+        // Affichage du total de like demarrage page
+        let totalLikes = 0
+        for(let i = 0 ; i < photographerMedias.length; i++){
+            totalLikes += photographerMedias[i].likes
+        }
+        document.querySelector('.totalLikes').innerHTML = totalLikes
+        
+        // Lorsque l'on clique sur les btn like
+        this.$mediasWrapper.querySelectorAll('.fa-heart').forEach(heart => heart.addEventListener('click', e => {
+            const sortedMedias = Sorter.getSortedMedias()
+            const currentElementIdClick = e.target.parentNode.parentNode.parentNode.getAttribute('data-id')
+            const currentElementClick = sortedMedias.find(elt => elt.id === parseInt(currentElementIdClick))
+            const numberOfLikeElement = e.target.previousElementSibling
+
+            currentElementClick.likes += 1
+            numberOfLikeElement.innerHTML = currentElementClick.likes
+            totalLikes++
+            document.querySelector('.totalLikes').innerHTML = totalLikes
+        }))
+
         document.getElementById('contactBtn').addEventListener('click', () => {
-            document.getElementById('contact_modal').innerHTML = new ModalContact(photographerInformations).render()
+            const modalContact = new ModalContact(photographerInformations)
+            modalContact.init()
         })
     }
 
     // Function to get all informations of the chosen photographer
     async getPhotographerInformations() {
         const photographers = await this.api.getPhotographers()
-
         return photographers.find(photographer => photographer.id === this.photographerId)
     }
 
     // Function to get all medias of the chosen photographer
     async getPhotographerMedias() {
         const medias = await this.api.getMedias()
-
         return medias.filter(media => media.photographerId == this.photographerId)
     }
 
     // Function diplay all informations of the chosen photographer
-    async displayPhotographerInformations() {
-        const informations = await this.getPhotographerInformations()
-
-        this.$photographerInformationsWrapper.innerHTML = new photographerInformation(informations).render()
-        this.$bottomPhotographerInformations.innerHTML = new photographerInformation(informations).renderBottom()
+    async displayPhotographerInformations(photographerInformations) {
+        this.$photographerInformationsWrapper.innerHTML = new photographerInformation(photographerInformations).render()
+        this.$bottomPhotographerInformations.innerHTML = new photographerInformation(photographerInformations).renderBottom()
     }
 
-    // Function diplay all medias of the chosen photographer
-    async displayPhotographerMedias() {
-        const medias = await this.getPhotographerMedias()
-        const photographerInfos = await this.getPhotographerInformations()
-
-        this.$mediasWrapper.innerHTML = medias
-        .map(media => new MediasFactory(media).forPhotographer(photographerInfos))
-        .join('')
-    }
 }
 
 // Get Json Data

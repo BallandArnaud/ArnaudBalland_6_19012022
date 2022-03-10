@@ -15,14 +15,14 @@ class photographerInformation {
             <p class="photograph-header__location">${this.city}, ${this.country}</p>
             <p class="photograph-header__tagline">${this.tagline}</p>
         </div>
-        <button id="contactBtn" class="btn btn--contact" onclick="displayModal()">Contactez-moi</button>
+        <button id="contactBtn" class="btn btn--contact">Contactez-moi</button>
         <img class="photograph-header__picture" src="/assets/photographers/${this.picture}">
         `
     }
 
     renderBottom() {
         return `
-            <span class="totalLikes">297 081 <i class="fa-solid fa-heart"></i></span>
+            <div class="likes"><span class="totalLikes">297 081</span><i class="fa-solid fa-heart"></i></div>
             <span class="pricePerDay">${this.price}€ / jour</span>
         `
     }

@@ -8,7 +8,7 @@ class VideoLightbox {
         const photographerName = this.photographer.name.split(' ')[0]
 
         return `
-            <video controls>
+            <video controls tabindex="0">
                 <source src="/assets/images/${photographerName}/${this.media.video}" type="video/webm">
                 <source src="/assets/images/${photographerName}/${this.media.video}" type="video/mp4">
                 Sorry, your browser doesn't support embedded videos.
