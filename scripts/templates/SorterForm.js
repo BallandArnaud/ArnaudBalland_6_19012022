@@ -16,7 +16,6 @@ class SorterForm {
     }
 
     async sorterMedias() {
-        // this.clearMediasWrapper()
         this.sortedMedias = this.ProxySorter.sorter(this.medias, this.sortValue)
         
         this.$mediasWrapper.innerHTML = this.sortedMedias
@@ -31,10 +30,6 @@ class SorterForm {
             this.sorterMedias()
         })
     }
-
-    // clearMediasWrapper() {
-    //     this.$mediasWrapper.innerHTML = ''
-    // }
 
     render() {
         const sorterForm = `

@@ -25,34 +25,63 @@ class PhotographerPage {
         Sorter.render()
         await Sorter.sorterMedias();
 
-        this.$mediasWrapper.addEventListener('click', e => {
+
+        const listenerFunction = function (e) {
+            
+            e.stopPropagation()
+
             const sortedMedias = Sorter.getSortedMedias()
-            if(e.target && e.target.parentNode.classList.contains("media")) {
+            // console.log(e)
+            // console.log(sortedMedias)
+
+            if(e.target && e.target.classList.contains("media__image")
+            && (e.type == "click" || e.key == "Enter")) {
                 const mediaId = e.target.parentNode.getAttribute('data-id')
                 const lightbox = new Lightbox(sortedMedias, mediaId, photographerInformations)
                 lightbox.init()
-                document.querySelector('.lightbox').focus()
             }
-        })
 
-        // Affichage du total de like demarrage page
-        let totalLikes = 0
-        for(let i = 0 ; i < photographerMedias.length; i++){
-            totalLikes += photographerMedias[i].likes
+            if(e.target && e.target.classList.contains("fa-heart")
+            && (e.type == "click" || e.key == "Enter")) {
+                console.log("click coeur")
+            }
         }
-        document.querySelector('.totalLikes').innerHTML = totalLikes
+
+        this.$mediasWrapper.addEventListener('click', listenerFunction, false)
+        this.$mediasWrapper.addEventListener('keyup', listenerFunction, false)
+        
+        // Affichage du total de like demarrage page
+        let totalMediasLikes = photographerMedias.reduce( (acc, curr) => acc + curr.likes, 0)
+        document.querySelector('.totalLikes').innerHTML = totalMediasLikes
         
         // Lorsque l'on clique sur les btn like
-        this.$mediasWrapper.querySelectorAll('.fa-heart').forEach(heart => heart.addEventListener('click', e => {
+        // Si case check alors +1 et si on décoche -1
+        this.$mediasWrapper.querySelectorAll('.heart').forEach(heart => heart.addEventListener('click', e => {
             const sortedMedias = Sorter.getSortedMedias()
-            const currentElementIdClick = e.target.parentNode.parentNode.parentNode.getAttribute('data-id')
+            
+            const currentElementIdClick = e.target.getAttribute('data-id')
             const currentElementClick = sortedMedias.find(elt => elt.id === parseInt(currentElementIdClick))
-            const numberOfLikeElement = e.target.previousElementSibling
+                        
+            const likes = document.querySelectorAll('.numberOfLike')
+            const likeArray = Array.from(likes)
+            const numberLikeToChange = likeArray.find(elt => elt.getAttribute("data-id") === currentElementIdClick)
+            
+            const checkboxs = document.querySelectorAll('.checkbox-heart')
+            const checkboxArray = Array.from(checkboxs)
+            const checkboxClicked = checkboxArray.find(elt => elt.id.split('-')[1] === currentElementIdClick)
 
-            currentElementClick.likes += 1
-            numberOfLikeElement.innerHTML = currentElementClick.likes
-            totalLikes++
-            document.querySelector('.totalLikes').innerHTML = totalLikes
+            if(!checkboxClicked.checked){
+                currentElementClick.isLiked = true
+                currentElementClick.likes++
+                totalMediasLikes++
+            } else {
+                currentElementClick.isLiked = false
+                currentElementClick.likes--
+                totalMediasLikes--
+            }
+
+            numberLikeToChange.innerHTML = currentElementClick.likes
+            document.querySelector('.totalLikes').innerHTML = totalMediasLikes
         }))
 
         document.getElementById('contactBtn').addEventListener('click', () => {

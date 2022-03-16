@@ -337,6 +337,11 @@ template {
   display: none;
 }
 
+*:focus-visible,
+button:focus-visible {
+  outline: 2px solid blue;
+}
+
 body {
   font-family: "DM Sans", sans-serif;
   margin: 0;
@@ -626,11 +631,13 @@ form textarea {
   cursor: pointer;
 }
 
+.media p {
+  margin: 0;
+}
 .media__caption {
   display: flex;
   justify-content: space-between;
-}
-.media__description, .media__like {
+  align-items: center;
   margin: 10px 0 0 0;
 }
 .media__description {
@@ -665,6 +672,16 @@ form textarea {
 
 #contact_modal {
   display: none;
+}
+
+.checkbox-heart {
+  display: none;
+}
+
+.checkbox-heart + label {
+  position: relative;
+  padding-left: 5px;
+  display: inline-block;
 }
 
 /*# sourceMappingURL=style.css.map */

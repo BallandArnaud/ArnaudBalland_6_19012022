@@ -22,7 +22,7 @@ class photographerInformation {
 
     renderBottom() {
         return `
-            <div class="likes"><span class="totalLikes">297 081</span><i class="fa-solid fa-heart"></i></div>
+            <div class="likes"><span class="totalLikes"></span><i class="fa-solid fa-heart"></i></div>
             <span class="pricePerDay">${this.price}€ / jour</span>
         `
     }

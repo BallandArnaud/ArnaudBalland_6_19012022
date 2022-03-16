@@ -55,15 +55,16 @@
 }
 
 .media {
+
+    p {
+        margin: 0;
+    }
    
     &__caption {
         display: flex;
         justify-content: space-between;
-    }
-
-    &__description,
-    &__like {
-        margin: 10px 0 0 0; 
+        align-items: center;
+        margin: 10px 0 0 0;
     }
 
     &__description {
@@ -102,4 +103,15 @@
 
 #contact_modal {
     display: none;
+}
+
+
+.checkbox-heart {
+    display: none;
+}
+
+.checkbox-heart + label {
+    position: relative;
+    padding-left: 5px;
+    display: inline-block;
 }

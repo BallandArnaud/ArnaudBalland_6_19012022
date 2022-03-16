@@ -9,11 +9,16 @@
 
     init () {
         this.currentMedia = this.medias.find(media => media.id === this.mediaId)
-        this.$main.appendChild(this.render(this.currentMedia))
+        const lightbox = this.render(this.currentMedia)
+        this.$main.appendChild(lightbox)
+        this.focusHandler()
 
         document.querySelector('.lightbox__close').addEventListener('click', (e) => {
             this.closeLightbox()
             window.removeEventListener('keyup', this.keyboardHandler)
+
+            // const currentElement = document.querySelector("[data-id='"+this.mediaId+"']")
+            // currentElement.focus()
         })
 
         document.querySelector('.lightbox__prev').addEventListener('click', () => {
@@ -25,7 +30,6 @@
         })
 
         this.eventHandler = e => this.keyboardHandler(e)
-        
         window.addEventListener("keyup", this.eventHandler, false);
     }
 
@@ -78,6 +82,37 @@
             default:
                 return
         }
+    }
+
+    focusHandler() {
+        const focusableElements ='button, [tabindex]:not([tabindex="-1"])';
+        const $lightbox = document.querySelector('.lightbox'); // select the modal by it's id
+
+        const firstFocusableElement = $lightbox.querySelectorAll(focusableElements)[0]; // get first element to be focused inside modal
+        const focusableContent = $lightbox.querySelectorAll(focusableElements);
+        const lastFocusableElement = focusableContent[focusableContent.length - 1]; // get last element to be focused inside modal
+
+        document.addEventListener('keydown', function(e) {
+            let isTabPressed = e.key === 'Tab'
+          
+            if (!isTabPressed) {
+                return;
+            }
+            
+            if (e.shiftKey) { // if shift key pressed for shift + tab combination
+                if (document.activeElement === firstFocusableElement) {
+                    lastFocusableElement.focus(); // add focus for the last focusable element
+                    e.preventDefault();
+                }
+            } else { // if tab key is pressed
+                if (document.activeElement === lastFocusableElement) { // if focused has reached to last focusable element then focus first focusable element after pressing tab
+                    firstFocusableElement.focus(); // add focus for the first focusable element
+                    e.preventDefault();
+                }
+            }
+        });
+        
+        firstFocusableElement.focus();
     }
 
     changeMedia (media) {

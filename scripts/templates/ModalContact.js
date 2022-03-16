@@ -4,13 +4,14 @@ class ModalContact {
         this.photographer = photographer
         this.$contactButton = document.getElementById('contactBtn')
         this.$contactModal = document.getElementById('contact_modal')
+        this.formIsValid
     }
 
     init () {
         this.$contactModal.innerHTML = this.render()
         this.displayModal()
 
-        document.querySelector('.modal input').focus()
+        this.focusHandler()
         
         document.querySelector('.modal__close').addEventListener('click', e => {
             this.closeModal()
@@ -21,20 +22,16 @@ class ModalContact {
             e.preventDefault()
             e.stopPropagation()
             this.validate()
-            this.closeModal()
+
+            if(this.formIsValid){
+                this.closeModal()
+            }
         })
     }
 
-    validate () {
-        this.$formFirst = document.getElementById('firstname').value
-        this.$formLast = document.getElementById('lastname').value
-        this.$formEmail = document.getElementById('email').value
-        this.$formMessage = document.getElementById('message').value
-        console.log(this.$formFirst)
-        console.log(this.$formLast)
-        console.log(this.$formEmail)
-        console.log(this.$formMessage)
-        console.log('Formulaire envoyé')
+    displayModal() {
+        const modal = document.getElementById("contact_modal");
+        modal.style.display = "block";
     }
 
     closeModal () {
@@ -42,9 +39,73 @@ class ModalContact {
         modal.style.display = "none";
     }
 
-    displayModal() {
-        const modal = document.getElementById("contact_modal");
-        modal.style.display = "block";
+    focusHandler() {
+        const focusableElements ='button, input, textarea, [tabindex]:not([tabindex="-1"])';
+        const modal = this.$contactModal; // select the modal by it's id
+
+        const firstFocusableElement = modal.querySelectorAll(focusableElements)[0]; // get first element to be focused inside modal
+        const focusableContent = modal.querySelectorAll(focusableElements);
+        const lastFocusableElement = focusableContent[focusableContent.length - 1]; // get last element to be focused inside modal
+
+        document.addEventListener('keydown', function(e) {
+            let isTabPressed = e.key === 'Tab'
+          
+            if (!isTabPressed) {
+                return;
+            }
+            
+            if (e.shiftKey) { // if shift key pressed for shift + tab combination
+                if (document.activeElement === firstFocusableElement) {
+                    lastFocusableElement.focus(); // add focus for the last focusable element
+                    e.preventDefault();
+                }
+            } else { // if tab key is pressed
+                if (document.activeElement === lastFocusableElement) { // if focused has reached to last focusable element then focus first focusable element after pressing tab
+                    firstFocusableElement.focus(); // add focus for the first focusable element
+                    e.preventDefault();
+                }
+            }
+        });
+          
+        firstFocusableElement.focus();
+    }
+
+    formInputIsValid(inputValue, inputType) {
+        const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        const regexName = /^[a-z-A-Z ,.'-]+$/;
+
+        if(inputValue == "" || inputValue.length < 2) {
+            this.formIsValid = false
+            console.log("Le champs est vide ou ne comporte pas assez de caractère")
+        } else if (inputType == "text" && regexName.test(inputValue) != true) {
+            this.formIsValid = false
+            console.log("Veuillez entrer des caractères valide pour le champ nom")
+        } else if (inputType == "email" && regexEmail.test(inputValue) != true) {
+            this.formIsValid = false
+            console.log("Veuillez entrer une adresse email valide")
+        } else {
+            console.log(inputValue)
+        }
+    }
+
+    validate () {
+        this.$formFirst = document.getElementById('firstname').value
+        this.$formLast = document.getElementById('lastname').value
+        this.$formEmail = document.getElementById('email').value
+        this.$formMessage = document.getElementById('message').value
+
+        this.formIsValid = true
+
+        this.formInputIsValid(this.$formFirst, "text")
+        this.formInputIsValid(this.$formLast, "text")
+        this.formInputIsValid(this.$formEmail, "email")
+        this.formInputIsValid(this.$formMessage)
+
+        if (this.formIsValid) {
+            console.log('Formulaire envoyé')
+        } else {
+            return
+        }
     }
 
     render () {
