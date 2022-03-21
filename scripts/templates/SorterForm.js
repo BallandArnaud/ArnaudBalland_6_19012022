@@ -2,8 +2,8 @@ class SorterForm {
 
     constructor(medias, photographerInfos, sortValue) {
         this.medias = medias
-        this.sortValue = sortValue
         this.photographerInfos = photographerInfos
+        this.sortValue = sortValue
         
         this.$sorterFormWrapper = document.querySelector('.photograph-filter')
         this.$mediasWrapper = document.querySelector('.photograph-medias')
@@ -23,11 +23,12 @@ class SorterForm {
             .join('')
     }
 
-    onChangeSorter() {
+    onChangeSorter(callback) {
         this.$sorterFormWrapper.addEventListener('change', e => {
             const sorterSelected = e.target.value
             this.sortValue = sorterSelected
             this.sorterMedias()
+            callback()
         })
     }
 
@@ -40,7 +41,7 @@ class SorterForm {
                 <option value="title">Titre</option>
             </select>
         `
-        this.onChangeSorter()
+        //this.onChangeSorter()
         this.$sorterFormWrapper.innerHTML = sorterForm
     }
 }

@@ -16,9 +16,7 @@
         document.querySelector('.lightbox__close').addEventListener('click', (e) => {
             this.closeLightbox()
             window.removeEventListener('keyup', this.keyboardHandler)
-
-            // const currentElement = document.querySelector("[data-id='"+this.mediaId+"']")
-            // currentElement.focus()
+            console.log('fermer')
         })
 
         document.querySelector('.lightbox__prev').addEventListener('click', () => {
@@ -78,6 +76,8 @@
                 break
             case "Escape":
                 this.closeLightbox()
+                const currentImage = document.querySelector("[data-id='"+this.currentMedia.id+"']").childNodes[1]
+                currentImage.focus()
                 break
             default:
                 return
@@ -130,9 +130,9 @@
         const dom = document.createElement('div')
         dom.classList.add('lightbox')
         dom.innerHTML = `
-            <button class="lightbox__close">Fermer modale</button>
-            <button class="lightbox__prev">Image précédent</button>
-            <button class="lightbox__next">Image suivant</button>
+            <button class="lightbox__close" aria-label="Fermer modale">Fermer modale</button>
+            <button class="lightbox__prev" aria-label="Image précédente">Image précédente</button>
+            <button class="lightbox__next" aria-label="Image suivante">Image suivante</button>
         `
         
         const lightBoxContainer = document.createElement('div')
