@@ -488,7 +488,8 @@ header .logo {
 }
 .lightbox__container img, .lightbox__container video {
   max-width: 100%;
-  height: 100%;
+  height: auto;
+  max-height: 100%;
   border-radius: 5px;
 }
 .lightbox__container p {
@@ -622,23 +623,26 @@ form textarea {
   color: #901C1C;
   font-size: 1.5rem;
 }
-.photograph-medias img, .photograph-medias video {
-  border-radius: 5px;
-  width: 350px;
-  height: 300px;
-  object-fit: cover;
-  overflow: hidden;
-  cursor: pointer;
-}
 
 .media p {
   margin: 0;
+}
+.media__image {
+  display: block;
+  margin: auto;
+  width: 350px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
 }
 .media__caption {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 0 0 0;
+  margin: 10px auto 0 auto;
+  width: 350px;
 }
 .media__description {
   white-space: nowrap;

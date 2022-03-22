@@ -84,10 +84,12 @@ class PhotographerPage {
 
         if(!checkboxClicked.checked){
             currentElementClick.isLiked = true
+            checkboxClicked.checked = true
             currentElementClick.likes++
             this.totalMediasLikes++
         } else {
             currentElementClick.isLiked = false
+            checkboxClicked.checked = false
             currentElementClick.likes--
             this.totalMediasLikes--
         }
@@ -115,6 +117,7 @@ class PhotographerPage {
         if(e.target && e.target.classList.contains("fa-heart")
         && (e.type == "click" || e.key == "Enter")) {
             console.log("click coeur")
+            this.likeHandler(e)
         }
     }
 

@@ -5,12 +5,12 @@ class HomePage {
         this.photographersApi = new PhotographerApi("/data/photographers.json")
     }
 
-    async main() {
+    async init() {
         const photographers = await this.photographersApi.getPhotographers()
 
         const photographersDomElements = photographers.map((photographer) => {
-            const photographerModel = photographerFactory(photographer);
-            return photographerModel.getUserCardDOM();
+            const photographerModel = new photographerFactory(photographer);
+            return photographerModel.createUserCard();
         });
     
         this.$photographerWrapper.innerHTML = photographersDomElements.join('')
@@ -18,4 +18,4 @@ class HomePage {
 }
 
 const app = new HomePage()
-app.main()
+app.init()

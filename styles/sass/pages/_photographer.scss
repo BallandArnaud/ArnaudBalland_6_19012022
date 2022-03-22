@@ -43,15 +43,6 @@
     margin: 0 100px 100px;
     color: $secondary-text-color;
     font-size: 1.5rem;
-
-    img, video {
-        border-radius: 5px;
-        width: 350px;
-        height: 300px;
-        object-fit: cover;
-        overflow: hidden;
-        cursor: pointer;
-    }
 }
 
 .media {
@@ -59,12 +50,24 @@
     p {
         margin: 0;
     }
+
+    &__image {
+        display: block;
+        margin: auto;
+        width: 350px;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 5px;
+        overflow: hidden;
+        cursor: pointer;
+    }
    
     &__caption {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin: 10px 0 0 0;
+        margin: 10px auto 0 auto;
+        width: 350px;
     }
 
     &__description {

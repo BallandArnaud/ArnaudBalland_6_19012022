@@ -1,24 +1,30 @@
-function photographerFactory(data) {
-    const { name, portrait, id, city, country, tagline, price } = data;
+class photographerFactory {
+    constructor(data) {
+        this.name = data.name
+        this.portrait = data.portrait
+        this.id = data.id
+        this.city = data.city
+        this.country = data.country
+        this.tagline = data.tagline
+        this.price = data.price
 
-    const picture = `assets/photographers/${portrait}`;
+        this.picture = `assets/photographers/${this.portrait}`;
+    }
 
-    function getUserCardDOM() {
+    createUserCard() {
         return  `
             <article class="card-photographer">
-                <a class="card-photographer__link" href="/photographer.html?id=${data.id}">
+                <a class="card-photographer__link" href="/photographer.html?id=${this.id}">
                     <img
                         class="card-photographer__image"
-                        src="assets/photographers/${data.portrait}"
+                        src="assets/photographers/${this.portrait}"
                     />
-                    <h2 class="card-photographer__name">${data.name}</h2>
+                    <h2 class="card-photographer__name">${this.name}</h2>
                 </a>
-                <p class="card-photographer__location">${data.city}, ${data.country}</p>
-                <p class="card-photographer__slogan">${data.tagline}</p>
-                <p class="card-photographer__pricePerDay">${data.price}€/jour</p>
+                <p class="card-photographer__location">${this.city}, ${this.country}</p>
+                <p class="card-photographer__slogan">${this.tagline}</p>
+                <p class="card-photographer__pricePerDay">${this.price}€/jour</p>
             </article>
         `
     }
-
-    return {getUserCardDOM }
 }

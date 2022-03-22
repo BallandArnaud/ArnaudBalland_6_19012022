@@ -16,7 +16,6 @@
         document.querySelector('.lightbox__close').addEventListener('click', (e) => {
             this.closeLightbox()
             window.removeEventListener('keyup', this.keyboardHandler)
-            console.log('fermer')
         })
 
         document.querySelector('.lightbox__prev').addEventListener('click', () => {
