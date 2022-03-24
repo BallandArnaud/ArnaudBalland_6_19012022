@@ -29,16 +29,11 @@ class PhotographerPage {
         this.Sorter = new SorterForm(photographerMedias, photographerInformations, 'popularity')
         this.Sorter.render()
         await this.Sorter.sorterMedias();
-        this.Sorter.onChangeSorter(this.reloadAfterSorted.bind(this))
+        this.reloadAfterSorted(photographerInformations)
 
-        this.reloadAfterSorted()
-
-        this.$mediasWrapper.addEventListener('click', (e) => {
-            this.listenerHandler(e, photographerInformations)
-        })
-
-        this.$mediasWrapper.addEventListener('keyup', (e) => {
-            this.listenerHandler(e, photographerInformations)
+        // this.Sorter.onChangeSorter(this.reloadAfterSorted.bind(this))
+        this.Sorter.onChangeSorter(() => {
+            this.reloadAfterSorted(photographerInformations)
         })
     
         document.getElementById('contactBtn').addEventListener('click', () => {
@@ -48,45 +43,61 @@ class PhotographerPage {
 
     }
 
-    reloadAfterSorted() {
-        // console.log('reset après le tri')
+    reloadAfterSorted(photographerInformations) {
         const sortedMedias = this.Sorter.getSortedMedias()
-        const checkboxsHeart = Array.from(document.querySelectorAll('.checkbox-heart'))
+        const checkboxesHeart = Array.from(document.querySelectorAll('.media__checkbox'))
 
+        // tick the checkboxes who have been checked
         sortedMedias.forEach(media => {
-            if (media.isliked !== undefined || media.isLiked === true) {
-                const currentCheckbox = checkboxsHeart.find(elt => parseInt(elt.id.split('-')[1]) === media.id)
+            if (media.isLiked === true) {
+                const currentCheckbox = checkboxesHeart.find(elt => parseInt(elt.id.split('-')[1]) === media.id)
                 currentCheckbox.checked = true
             }
         })
 
-        // const $hearts = this.$mediasWrapper.querySelectorAll('.fa-heart')
-        // $hearts.forEach(heart => heart.addEventListener('click', (e) => {
-        //     this.likeHandler(e)
-        // }))
+        this.mediaListener(sortedMedias, photographerInformations)
+        this.likeListener()
     }
 
-    listenerHandler(e, photographerInformations) {
-        e.stopPropagation()
-        e.preventDefault()
+    mediaListener(sortedMedias, photographerInformations) {
 
-        const sortedMedias = this.Sorter.getSortedMedias()
+        const images = document.querySelectorAll('.media__image')
+        images.forEach(image => {
 
-        console.log(e)
-        // console.log(sortedMedias)
-        // console.log(photographerInformations)
+            image.addEventListener('click', (e) => {
+                this.openLightbox(e, sortedMedias, photographerInformations)
+            })
 
-        if(e.target && e.target.classList.contains("media__image")
-        && (e.type == "click" || e.key == "Enter")) {
-            const mediaId = e.target.parentNode.getAttribute('data-id')
-            const lightbox = new Lightbox(sortedMedias, mediaId, photographerInformations)
-            lightbox.init()
-        }
+            image.addEventListener('keyup', (e) => {
+                if(e.key === 'Enter') {
+                    this.openLightbox(e, sortedMedias, photographerInformations)
+                }
+            }) 
+        })
 
-        if(e.target && e.target.classList.contains("fa-heart")
-        && (e.type == "click" || e.key == "Enter")) {
-            this.likeHandler(e)
-        }
+    }
+
+    openLightbox(event, sortedMedias, photographerInformations) {
+        const mediaId = event.target.parentNode.getAttribute('data-id')
+        const lightbox = new Lightbox(sortedMedias, mediaId, photographerInformations)
+        lightbox.init()
+    }
+
+    // Function add listener click and keyup on all media hearts
+    likeListener() {
+        const hearts = document.querySelectorAll('.media__heart')
+        hearts.forEach(heart => {
+            heart.addEventListener('click', e => {
+                e.preventDefault()
+                this.likeHandler(e)
+            })
+
+            heart.addEventListener('keyup', e => {
+                if(e.key === 'Enter') {
+                    this.likeHandler(e)
+                }
+            })
+        })
     }
 
     likeHandler(e) {
@@ -98,12 +109,8 @@ class PhotographerPage {
         const numberLikes = Array.from(document.querySelectorAll('.numberOfLike'))
         const currentNumberLike = numberLikes.find(elt => elt.getAttribute("data-id") === currentHeartId)
         
-        const checkboxs = Array.from(document.querySelectorAll('.checkbox-heart'))
+        const checkboxs = Array.from(document.querySelectorAll('.media__checkbox'))
         const currentCheckbox = checkboxs.find(elt => elt.id.split('-')[1] === currentHeartId)
-
-        // console.log(sortedMedias)
-        // console.log(currentElement)
-        // console.log(currentCheckbox)
 
         if(!currentCheckbox.checked){
             currentElement.isLiked = true

@@ -15,7 +15,8 @@
         transition: opacity .3s;
     }
 
-    button:hover {
+    button:hover,
+    button:focus {
         opacity: 1;
     }
 
@@ -27,6 +28,7 @@
         top: 35px;
         right: 35px;
         z-index: 12;
+        cursor: pointer;
     }
 
     &__prev,

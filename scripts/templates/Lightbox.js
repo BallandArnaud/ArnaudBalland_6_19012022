@@ -14,9 +14,16 @@
         this.focusHandler()
 
         document.querySelector('.lightbox__close').addEventListener('click', (e) => {
-            console.log(e)
             this.closeLightbox()
             window.removeEventListener('keyup', this.keyboardHandler)
+        })
+
+        document.querySelector('.lightbox__close').addEventListener('keyup', (e) => {
+            if(e.key === 'Enter') {
+                this.closeLightbox()
+                this.focusOnLastMediaSeen()
+                window.removeEventListener('keyup', this.keyboardHandler)
+            }
         })
 
         document.querySelector('.lightbox__prev').addEventListener('click', () => {
@@ -76,16 +83,20 @@
                 break
             case "Escape":
                 this.closeLightbox()
-                const currentImage = document.querySelector("[data-id='"+this.currentMedia.id+"']").childNodes[1]
-                currentImage.focus()
+                this.focusOnLastMediaSeen()
                 break
             default:
                 return
         }
     }
 
+    focusOnLastMediaSeen() {
+        const currentImage = document.querySelector("[data-id='"+this.currentMedia.id+"']").childNodes[1]
+        currentImage.focus()
+    }
+
     focusHandler() {
-        const focusableElements ='button, [tabindex]:not([tabindex="-1"])';
+        const focusableElements ='button, span.lightbox__close, [tabindex]:not([tabindex="-1"])';
         const $lightbox = document.querySelector('.lightbox'); // select the modal by it's id
 
         const firstFocusableElement = $lightbox.querySelectorAll(focusableElements)[0]; // get first element to be focused inside modal
@@ -130,7 +141,7 @@
         const dom = document.createElement('div')
         dom.classList.add('lightbox')
         dom.innerHTML = `
-            <button class="lightbox__close" aria-label="Fermer modale">Fermer modale</button>
+            <span class="lightbox__close" aria-label="Fermer modale" tabindex="0"></span>
             <button class="lightbox__prev" aria-label="Image précédente">Image précédente</button>
             <button class="lightbox__next" aria-label="Image suivante">Image suivante</button>
         `

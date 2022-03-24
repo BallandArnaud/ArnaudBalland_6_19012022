@@ -14,8 +14,8 @@ class ImageCard {
                     <p class="media__description">${this.media.title}</p>
                     <p class="media__like"><span class="numberOfLike" data-id="${this.media.id}">${this.media.likes}</span></p>
                     <div>
-                        <input id="heart-${this.media.id}" class="checkbox-heart" type="checkbox" tabindex="-1" />
-                        <label for="heart-${this.media.id}"><i class="fa-solid fa-heart heart" data-id="${this.media.id}" tabindex="0" aria-label="likes"></i></label>
+                        <input id="heart-${this.media.id}" class="media__checkbox" type="checkbox" tabindex="-1" />
+                        <label for="heart-${this.media.id}"><i class="fa-solid fa-heart media__heart" data-id="${this.media.id}" tabindex="0" aria-label="likes"></i></label>
                     </div>
                 </div>
                 <!--<p>${this.media.date}</p>-->
