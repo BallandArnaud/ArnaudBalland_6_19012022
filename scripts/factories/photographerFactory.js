@@ -17,7 +17,7 @@ class photographerFactory {
                 <a class="card-photographer__link" href="/photographer.html?id=${this.id}">
                     <img
                         class="card-photographer__image"
-                        src="assets/photographers/${this.portrait}"
+                        src="${this.picture}"
                     />
                     <h2 class="card-photographer__name">${this.name}</h2>
                 </a>

@@ -14,6 +14,7 @@
         this.focusHandler()
 
         document.querySelector('.lightbox__close').addEventListener('click', (e) => {
+            console.log(e)
             this.closeLightbox()
             window.removeEventListener('keyup', this.keyboardHandler)
         })

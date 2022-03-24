@@ -71,29 +71,53 @@ class ModalContact {
         firstInput.focus();
     }
 
-    formInputIsValid(inputValue, inputType) {
+    formInputIsValid(inputElement, inputType) {
         const regexName = /^[a-z-A-Z ,.'-]+$/;
         const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
+        const inputValue = inputElement.value
+        const currentInput = inputElement.id.split("__")[1]
+
         if(inputValue == "" || inputValue.length < 2) {
             this.formIsValid = false
-            console.log("Le champs est vide ou ne comporte pas assez de caractère")
+            this.addFormErrorMessage(inputElement)
+            console.log(`Le champs ${currentInput} est vide ou ne comporte pas assez de caractère`)
         } else if (inputType == "text" && regexName.test(inputValue) != true) {
             this.formIsValid = false
-            console.log("Veuillez entrer des caractères valide pour le champ prénom ou nom")
+            this.addFormErrorMessage(inputElement)
+            console.log(`Veuillez entrer des caractères valide pour le champ ${currentInput}`)
         } else if (inputType == "email" && regexEmail.test(inputValue) != true) {
             this.formIsValid = false
+            this.addFormErrorMessage(inputElement)
             console.log("Veuillez entrer une adresse email valide")
         } else {
+            this.removeFormErrorMessage(inputElement)
             console.log(inputValue)
         }
     }
 
+    // Add error message
+    addFormErrorMessage(element){
+        element.setAttribute('data-error-visible', 'true');
+    }
+    
+    // Remove error message
+    removeFormErrorMessage(element){
+        element.removeAttribute('data-error-visible');
+    }
+
+    resetModal() {
+        this.$formFirst.value = ""
+        this.$formLast. value = ""
+        this.$formEmail. value = ""
+        this.$formMessage.value = ""
+    }
+
     validate () {
-        this.$formFirst = document.getElementById('modal__firstname').value
-        this.$formLast = document.getElementById('modal__lastname').value
-        this.$formEmail = document.getElementById('modal__email').value
-        this.$formMessage = document.getElementById('modal__message').value
+        this.$formFirst = document.getElementById('modal__firstname')
+        this.$formLast = document.getElementById('modal__lastname')
+        this.$formEmail = document.getElementById('modal__email')
+        this.$formMessage = document.getElementById('modal__message')
 
         this.formIsValid = true
 
@@ -104,6 +128,7 @@ class ModalContact {
 
         if (this.formIsValid) {
             console.log('Formulaire envoyé')
+            this.resetModal()
         }
     }
 

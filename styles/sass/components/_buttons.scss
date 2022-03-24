@@ -16,7 +16,8 @@
         z-index: 0;
         transition: color .3s ease-in-out;
 
-        &:hover {
+        &:hover,
+        &:focus {
             color: #000;
         }
 
@@ -34,7 +35,8 @@
             z-index: -1;
         }
 
-        &:hover::after {
+        &:hover::after,
+        &:focus::after {
             opacity: 1;
         }
     }

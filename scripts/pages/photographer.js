@@ -6,40 +6,40 @@ class PhotographerPage {
 
         // Get DOM Elements
         this.$photographerInformationsWrapper = document.querySelector('.photograph-header')
-        this.$mediasWrapper = document.querySelector('.photograph-medias')
         this.$filter = document.querySelector('.photograph-filter')
+        this.$mediasWrapper = document.querySelector('.photograph-medias')
         this.$bottomPhotographerInformations = document.querySelector('.photograph-informations')
     }
 
     async init() {
         // Get the photographer ID in the URL
         const params = new URLSearchParams(window.location.search)
-        this.photographerId = parseInt(params.get("id"),10)
+        this.photographerId = parseInt(params.get("id"))
 
         // Get the Data 
         const photographerMedias = await this.getPhotographerMedias()
         const photographerInformations = await this.getPhotographerInformations()
 
         this.displayPhotographerInformations(photographerInformations)
+        // Affichage du total de like demarrage page
+        this.totalMediasLikes = photographerMedias.reduce( (acc, curr) => acc + curr.likes, 0)
+        document.querySelector('.totalLikes').innerHTML = this.totalMediasLikes
+
         
         this.Sorter = new SorterForm(photographerMedias, photographerInformations, 'popularity')
         this.Sorter.render()
         await this.Sorter.sorterMedias();
-        this.Sorter.onChangeSorter(this.resetEverything.bind(this))
+        this.Sorter.onChangeSorter(this.reloadAfterSorted.bind(this))
 
-        this.resetEverything()
+        this.reloadAfterSorted()
 
         this.$mediasWrapper.addEventListener('click', (e) => {
-            this.listenerFunction(e, photographerInformations)
+            this.listenerHandler(e, photographerInformations)
         })
 
         this.$mediasWrapper.addEventListener('keyup', (e) => {
-            this.listenerFunction(e, photographerInformations)
+            this.listenerHandler(e, photographerInformations)
         })
-        
-        // Affichage du total de like demarrage page
-        this.totalMediasLikes = photographerMedias.reduce( (acc, curr) => acc + curr.likes, 0)
-        document.querySelector('.totalLikes').innerHTML = this.totalMediasLikes
     
         document.getElementById('contactBtn').addEventListener('click', () => {
             const modalContact = new ModalContact(photographerInformations)
@@ -48,8 +48,8 @@ class PhotographerPage {
 
     }
 
-    resetEverything() {
-        console.log('reset après le tri')
+    reloadAfterSorted() {
+        // console.log('reset après le tri')
         const sortedMedias = this.Sorter.getSortedMedias()
         const checkboxsHeart = Array.from(document.querySelectorAll('.checkbox-heart'))
 
@@ -60,50 +60,19 @@ class PhotographerPage {
             }
         })
 
-        const $hearts = this.$mediasWrapper.querySelectorAll('.fa-heart')
-
-        $hearts.forEach(heart => heart.addEventListener('click', (e) => {
-            this.likeHandler(e)
-        }))
+        // const $hearts = this.$mediasWrapper.querySelectorAll('.fa-heart')
+        // $hearts.forEach(heart => heart.addEventListener('click', (e) => {
+        //     this.likeHandler(e)
+        // }))
     }
 
-    likeHandler(e) {
-        const sortedMedias = this.Sorter.getSortedMedias()
-            
-        const currentElementIdClick = e.target.getAttribute('data-id')
-        const currentElementClick = sortedMedias.find(elt => elt.id === parseInt(currentElementIdClick))
-                    
-        const likesArray = Array.from(document.querySelectorAll('.numberOfLike'))
-        const numberLikeToChange = likesArray.find(elt => elt.getAttribute("data-id") === currentElementIdClick)
-        
-        const checkboxsArray = Array.from(document.querySelectorAll('.checkbox-heart'))
-        const checkboxClicked = checkboxsArray.find(elt => elt.id.split('-')[1] === currentElementIdClick)
-
-        // console.log(sortedMedias)
-        // console.log(currentElementClick)
-
-        if(!checkboxClicked.checked){
-            currentElementClick.isLiked = true
-            checkboxClicked.checked = true
-            currentElementClick.likes++
-            this.totalMediasLikes++
-        } else {
-            currentElementClick.isLiked = false
-            checkboxClicked.checked = false
-            currentElementClick.likes--
-            this.totalMediasLikes--
-        }
-
-        numberLikeToChange.innerHTML = currentElementClick.likes
-        document.querySelector('.totalLikes').innerHTML = this.totalMediasLikes
-    }
-
-    listenerFunction(e, photographerInformations) {
+    listenerHandler(e, photographerInformations) {
         e.stopPropagation()
+        e.preventDefault()
 
         const sortedMedias = this.Sorter.getSortedMedias()
 
-        // console.log(e)
+        console.log(e)
         // console.log(sortedMedias)
         // console.log(photographerInformations)
 
@@ -116,9 +85,40 @@ class PhotographerPage {
 
         if(e.target && e.target.classList.contains("fa-heart")
         && (e.type == "click" || e.key == "Enter")) {
-            console.log("click coeur")
             this.likeHandler(e)
         }
+    }
+
+    likeHandler(e) {
+        const sortedMedias = this.Sorter.getSortedMedias()
+            
+        const currentHeartId = e.target.getAttribute('data-id')
+        const currentElement = sortedMedias.find(elt => elt.id === parseInt(currentHeartId))
+                    
+        const numberLikes = Array.from(document.querySelectorAll('.numberOfLike'))
+        const currentNumberLike = numberLikes.find(elt => elt.getAttribute("data-id") === currentHeartId)
+        
+        const checkboxs = Array.from(document.querySelectorAll('.checkbox-heart'))
+        const currentCheckbox = checkboxs.find(elt => elt.id.split('-')[1] === currentHeartId)
+
+        // console.log(sortedMedias)
+        // console.log(currentElement)
+        // console.log(currentCheckbox)
+
+        if(!currentCheckbox.checked){
+            currentElement.isLiked = true
+            currentCheckbox.checked = true
+            currentElement.likes++
+            this.totalMediasLikes++
+        } else {
+            currentElement.isLiked = false
+            currentCheckbox.checked = false
+            currentElement.likes--
+            this.totalMediasLikes--
+        }
+
+        currentNumberLike.innerHTML = currentElement.likes
+        document.querySelector('.totalLikes').innerHTML = this.totalMediasLikes
     }
 
     // Function to get all informations of the chosen photographer

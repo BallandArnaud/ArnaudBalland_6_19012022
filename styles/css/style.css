@@ -387,7 +387,7 @@ header .logo {
   z-index: 0;
   transition: color 0.3s ease-in-out;
 }
-.btn--contact:hover {
+.btn--contact:hover, .btn--contact:focus {
   color: #000;
 }
 .btn--contact::after {
@@ -403,7 +403,7 @@ header .logo {
   border-radius: inherit;
   z-index: -1;
 }
-.btn--contact:hover::after {
+.btn--contact:hover::after, .btn--contact:focus::after {
   opacity: 1;
 }
 
@@ -502,7 +502,7 @@ header .logo {
   background-color: #DB8876;
   width: 50%;
   position: fixed;
-  top: 4%;
+  top: 2%;
   left: 0;
   right: 0;
   display: flex;
@@ -565,6 +565,10 @@ form input {
 }
 form textarea {
   height: 170px;
+}
+form input[data-error-visible=true],
+form textarea[data-error-visible=true] {
+  border: 3px solid #e54858;
 }
 
 .photographer_section {
