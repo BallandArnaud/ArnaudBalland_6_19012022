@@ -14,7 +14,7 @@ class photographerFactory {
     createUserCard() {
         return  `
             <article class="card-photographer">
-                <a class="card-photographer__link" href="/photographer.html?id=${this.id}">
+                <a class="card-photographer__link" href="photographer.html?id=${this.id}">
                     <img
                         class="card-photographer__image"
                         src="${this.picture}"

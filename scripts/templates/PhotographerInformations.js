@@ -16,7 +16,7 @@ class photographerInformation {
             <p class="photograph-header__tagline">${this.tagline}</p>
         </div>
         <button id="contactBtn" class="btn btn--contact" tabindex="0">Contactez-moi</button>
-        <img class="photograph-header__picture" src="/assets/photographers/${this.picture}" alt="${this.name}">
+        <img class="photograph-header__picture" src="assets/photographers/${this.picture}" alt="${this.name}">
         `
     }
 
