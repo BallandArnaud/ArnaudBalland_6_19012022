@@ -16,7 +16,6 @@ class ModalContact {
         
         document.getElementById('modal__close').addEventListener('click', e => {
             this.closeModal()
-            this.$contactButton.focus()
         })
 
         document.getElementById('modal__form').addEventListener('submit', e => {
@@ -28,6 +27,9 @@ class ModalContact {
                 this.closeModal()
             }
         })
+
+        this.eventHandler = e => this.keyboardHandler(e)
+        document.querySelector('.modal').addEventListener("keyup", this.eventHandler, false);
     }
 
     displayModal() {
@@ -36,6 +38,14 @@ class ModalContact {
 
     closeModal () {
         this.$contactModal.style.display = "none";
+        this.$contactButton.focus()
+        document.querySelector('.modal').removeEventListener('keyup', this.eventHandler)
+    }
+
+    keyboardHandler(e) {
+        if(e.key === 'Escape') {
+            this.closeModal()
+        }
     }
 
     focusHandler() {
@@ -136,7 +146,7 @@ class ModalContact {
         const dom = document.createElement('div')
         dom.setAttribute("id", "contact_modal")
         dom.innerHTML = `
-            <div class="modal">
+            <div class="modal" aria-hidden="true" role="dialog">
             <header class="modal__header">
                 <h2>Contactez-moi <br/>${this.photographer.name}</h2>
                 <button id="modal__close" class="modal__close" aria-label="Fermer">
