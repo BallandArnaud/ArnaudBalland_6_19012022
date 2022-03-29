@@ -149,7 +149,7 @@ class PhotographerPage {
 }
 
 // Get Json Data
-const api = new PhotographerApi("/data/photographers.json")
+const api = new PhotographerApi("./data/photographers.json")
 
 const photographer = new PhotographerPage(api)
 photographer.init()
