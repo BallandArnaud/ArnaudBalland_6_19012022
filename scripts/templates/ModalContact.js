@@ -18,6 +18,13 @@ class ModalContact {
             this.closeModal()
         })
 
+        document.getElementById('modal__close').addEventListener('keyup', e => {
+            console.log(e)
+            if(e.key === "Enter") {
+                this.closeModal()
+            }
+        })
+
         document.getElementById('modal__form').addEventListener('submit', e => {
             e.preventDefault()
             e.stopPropagation()

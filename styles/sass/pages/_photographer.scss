@@ -114,13 +114,17 @@
     height: 100%;
 }
 
-/*
-.checkbox-heart {
+
+.media__checkbox {
     display: none;
 }
 
-.checkbox-heart + label {
+.media__checkbox + label {
     position: relative;
     padding-left: 5px;
     display: inline-block;
-}*/
+}
+
+.media__checkbox:checked + label {
+    color: $secondary-background-color;
+}

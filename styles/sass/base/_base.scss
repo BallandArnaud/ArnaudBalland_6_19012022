@@ -5,7 +5,6 @@ button:focus-visible{
 
 body {
     font-family: "DM Sans", sans-serif;
-    margin: 0;
 }
 
 h1 {
@@ -13,6 +12,5 @@ h1 {
 }
 
 .container {
-    width: 90%;
-    margin: auto;
+    margin-inline: 100px;
 }

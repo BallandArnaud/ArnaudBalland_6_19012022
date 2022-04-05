@@ -11,18 +11,17 @@
         this.currentMedia = this.medias.find(media => media.id === this.mediaId)
         const lightbox = this.render(this.currentMedia)
         this.$main.appendChild(lightbox)
-        this.focusHandler()
 
         document.querySelector('.lightbox__close').addEventListener('click', (e) => {
             this.closeLightbox()
-            window.removeEventListener('keyup', this.keyboardHandler)
+            document.removeEventListener('keyup', this.keyboardHandler)
         })
 
         document.querySelector('.lightbox__close').addEventListener('keyup', (e) => {
             if(e.key === 'Enter') {
                 this.closeLightbox()
                 this.focusOnLastMediaSeen()
-                window.removeEventListener('keyup', this.keyboardHandler)
+                document.removeEventListener('keyup', this.keyboardHandler)
             }
         })
 
@@ -35,7 +34,9 @@
         })
 
         this.eventHandler = e => this.keyboardHandler(e)
-        window.addEventListener("keyup", this.eventHandler, false);
+        document.addEventListener("keyup", this.eventHandler, false);
+
+        this.focusHandler()
     }
 
     getCurrentMediaIndex(){
@@ -43,7 +44,7 @@
     }
 
     closeLightbox () {
-        window.removeEventListener('keyup', this.eventHandler)
+        document.removeEventListener('keyup', this.eventHandler)
         this.$main.removeChild(document.querySelector('.lightbox'))
     }
 
@@ -72,7 +73,7 @@
 
     keyboardHandler(event) {
         
-        event.preventDefault()
+        // event.preventDefault()
 
         switch (event.key) {
             case "ArrowLeft":
@@ -90,6 +91,7 @@
         }
     }
 
+    // Get the last media on when we close the lightbox and redirect the focus on the last media in the photographer page
     focusOnLastMediaSeen() {
         const currentImage = document.querySelector("[data-id='"+this.currentMedia.id+"']").childNodes[1]
         currentImage.focus()
@@ -133,11 +135,7 @@
         return new MediasFactory(media).forLightbox(this.photographerInformations)
     }
 
-    render (media) {
-        this.image = media.image
-        this.description = media.title
-        this.photographerName = this.photographerInformations.name.split(' ')[0]
-        
+    render (media) {        
         const dom = document.createElement('div')
         dom.classList.add('lightbox')
         dom.innerHTML = `

@@ -19,6 +19,9 @@ class PhotographerPage {
         // Get the Data 
         const photographerMedias = await this.getPhotographerMedias()
         const photographerInformations = await this.getPhotographerInformations()
+        
+        // Create the page title
+        document.title = document.title + " " + photographerInformations.name
 
         this.displayPhotographerInformations(photographerInformations)
         // Affichage du total de like demarrage page

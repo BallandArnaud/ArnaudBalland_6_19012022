@@ -344,7 +344,6 @@ button:focus-visible {
 
 body {
   font-family: "DM Sans", sans-serif;
-  margin: 0;
 }
 
 h1 {
@@ -352,8 +351,7 @@ h1 {
 }
 
 .container {
-  width: 90%;
-  margin: auto;
+  margin-inline: 100px;
 }
 
 header {
@@ -364,6 +362,7 @@ header .container {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
 }
 header .logo {
   height: 50px;
@@ -690,15 +689,18 @@ form textarea[data-error-visible=true] {
   height: 100%;
 }
 
-/*
-.checkbox-heart {
-    display: none;
+.media__checkbox {
+  display: none;
 }
 
-.checkbox-heart + label {
-    position: relative;
-    padding-left: 5px;
-    display: inline-block;
-}*/
+.media__checkbox + label {
+  position: relative;
+  padding-left: 5px;
+  display: inline-block;
+}
+
+.media__checkbox:checked + label {
+  color: #DB8876;
+}
 
 /*# sourceMappingURL=style.css.map */
