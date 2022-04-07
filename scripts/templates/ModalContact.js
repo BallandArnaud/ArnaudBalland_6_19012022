@@ -1,162 +1,164 @@
 class ModalContact {
+  constructor (photographer) {
+    this.photographer = photographer
+    this.formIsValid
+  }
 
-    constructor(photographer) {
-        this.photographer = photographer
-        this.formIsValid
+  init () {
+    document.body.appendChild(this.render())
+
+    this.$contactButton = document.getElementById('contactBtn')
+    this.$contactModal = document.getElementById('contact_modal')
+    this.$modal = document.querySelector('.modal')
+
+    this.displayModal()
+    this.focusHandler()
+
+    document.getElementById('modal__close').addEventListener('click', e => {
+      this.closeModal()
+    })
+
+    document.getElementById('modal__close').addEventListener('keyup', e => {
+      if (e.key === 'Enter') {
+        this.closeModal()
+      }
+    })
+
+    document.getElementById('modal__form').addEventListener('submit', e => {
+      e.preventDefault()
+      e.stopPropagation()
+
+      this.validate()
+
+      if (this.formIsValid) {
+        this.closeModal()
+      }
+    })
+
+    this.eventHandler = e => this.keyboardHandler(e)
+    this.$modal.addEventListener('keyup', this.eventHandler, false)
+  }
+
+  displayModal () {
+    this.$contactModal.style.display = 'block'
+    this.$modal.setAttribute('aria-hidden', 'false')
+  }
+
+  closeModal () {
+    this.$contactModal.style.display = 'none'
+    this.$contactButton.focus()
+    this.$modal.setAttribute('aria-hidden', 'true')
+    this.$modal.removeEventListener('keyup', this.eventHandler)
+  }
+
+  keyboardHandler (e) {
+    if (e.key === 'Escape') {
+      this.closeModal()
     }
+  }
 
-    init () {
-        document.body.appendChild(this.render())
+  // Keep the focus in the modal
+  focusHandler () {
+    const focusableElements = 'button, input, textarea, [tabindex]:not([tabindex="-1"])'
+    const $modal = this.$contactModal // select the modal by it's id
 
-        this.$contactButton = document.getElementById('contactBtn')
-        this.$contactModal = document.getElementById('contact_modal')
-        this.$modal = document.querySelector('.modal')
+    const focusableContent = $modal.querySelectorAll(focusableElements)
+    const focusableContentArr = Array.from(focusableContent)
 
-        this.displayModal()
-        this.focusHandler()
-        
-        document.getElementById('modal__close').addEventListener('click', e => {
-            this.closeModal()
-        })
+    const firstFocusableElement = $modal.querySelectorAll(focusableElements)[0] // get first element to be focused inside modal
+    const lastFocusableElement = focusableContent[focusableContent.length - 1] // get last element to be focused inside modal
+    const firstInput = focusableContentArr.find(elt => elt.tagName === 'INPUT')
 
-        document.getElementById('modal__close').addEventListener('keyup', e => {
-            if(e.key === "Enter") {
-                this.closeModal()
-            }
-        })
+    firstInput.focus()
 
-        document.getElementById('modal__form').addEventListener('submit', e => {
-            e.preventDefault()
-            e.stopPropagation()
-            this.validate()
+    $modal.addEventListener('keydown', function (e) {
+      const isTabPressed = e.key === 'Tab'
 
-            if (this.formIsValid) {
-                this.closeModal()
-            }
-        })
+      if (!isTabPressed) {
+        return
+      }
 
-        this.eventHandler = e => this.keyboardHandler(e)
-        this.$modal.addEventListener("keyup", this.eventHandler, false);
-    }
-
-    displayModal() {
-        this.$contactModal.style.display = "block";
-        this.$modal.setAttribute('aria-hidden', 'false')
-    }
-
-    closeModal () {
-        this.$contactModal.style.display = "none";
-        this.$contactButton.focus()
-        this.$modal.setAttribute('aria-hidden', 'true')
-        this.$modal.removeEventListener('keyup', this.eventHandler)
-    }
-
-    keyboardHandler(e) {
-        if(e.key === 'Escape') {
-            this.closeModal()
+      if (e.shiftKey) { // if shift key pressed for shift + tab combination
+        if (document.activeElement === firstFocusableElement) {
+          lastFocusableElement.focus() // add focus for the last focusable element
+          e.preventDefault()
         }
-    }
-
-    focusHandler() {
-        const focusableElements ='button, input, textarea, [tabindex]:not([tabindex="-1"])';
-        const modal = this.$contactModal; // select the modal by it's id
-
-        const focusableContent = modal.querySelectorAll(focusableElements);
-        const focusableContentArr = Array.from(focusableContent)
-
-        const firstFocusableElement = modal.querySelectorAll(focusableElements)[0]; // get first element to be focused inside modal
-        const lastFocusableElement = focusableContent[focusableContent.length - 1]; // get last element to be focused inside modal
-        const firstInput = focusableContentArr.find(elt => elt.tagName === "INPUT")
-
-        modal.addEventListener('keydown', function(e) {
-            let isTabPressed = e.key === 'Tab'
-            
-            if (!isTabPressed) {
-                return
-            }
-
-            if (e.shiftKey) { // if shift key pressed for shift + tab combination
-                if (document.activeElement === firstFocusableElement) {
-                    lastFocusableElement.focus() // add focus for the last focusable element
-                    e.preventDefault()
-                }
-            } else { // if tab key is pressed
-                if (document.activeElement === lastFocusableElement) { // if focused has reached to last focusable element then focus first focusable element after pressing tab
-                    firstFocusableElement.focus() // add focus for the first focusable element
-                    e.preventDefault()
-                }
-            }
-        })
-        firstInput.focus();
-    }
-
-    formInputIsValid(inputElement, inputType) {
-        const regexName = /^[a-z-A-Z ,.'-]+$/;
-        const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-        const inputValue = inputElement.value
-        const currentInput = inputElement.id.split("__")[1]
-
-        if(inputValue == "" || inputValue.length < 2) {
-            this.formIsValid = false
-            this.addFormErrorMessage(inputElement)
-            console.log(`Le champs ${currentInput} est vide ou ne comporte pas assez de caractère`)
-        } else if (inputType == "text" && regexName.test(inputValue) != true) {
-            this.formIsValid = false
-            this.addFormErrorMessage(inputElement)
-            console.log(`Veuillez entrer des caractères valide pour le champ ${currentInput}`)
-        } else if (inputType == "email" && regexEmail.test(inputValue) != true) {
-            this.formIsValid = false
-            this.addFormErrorMessage(inputElement)
-            console.log("Veuillez entrer une adresse email valide")
-        } else {
-            this.removeFormErrorMessage(inputElement)
-            console.log(inputValue)
+      } else { // if tab key is pressed
+        if (document.activeElement === lastFocusableElement) { // if focused has reached to last focusable element then focus first focusable element after pressing tab
+          firstFocusableElement.focus() // add focus for the first focusable element
+          e.preventDefault()
         }
+      }
+    })
+  }
+
+  formInputIsValid (inputElement, inputType) {
+    const regexName = /^[a-z-A-Z ,.'-]+$/
+    const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+    const inputValue = inputElement.value
+    const currentInput = inputElement.id.split('__')[1]
+
+    if (inputValue == '' || inputValue.length < 2) {
+      this.formIsValid = false
+      this.addFormErrorMessage(inputElement)
+      console.log(`Le champs ${currentInput} est vide ou ne comporte pas assez de caractère`)
+    } else if (inputType == 'text' && regexName.test(inputValue) != true) {
+      this.formIsValid = false
+      this.addFormErrorMessage(inputElement)
+      console.log(`Veuillez entrer des caractères valide pour le champ ${currentInput}`)
+    } else if (inputType == 'email' && regexEmail.test(inputValue) != true) {
+      this.formIsValid = false
+      this.addFormErrorMessage(inputElement)
+      console.log('Veuillez entrer une adresse email valide')
+    } else {
+      this.removeFormErrorMessage(inputElement)
+      console.log(inputValue)
     }
+  }
 
-    // Add error message
-    addFormErrorMessage(element){
-        element.setAttribute('data-error-visible', 'true')
-        element.setAttribute('aria-invalid', 'true')
+  // Add error message
+  addFormErrorMessage (element) {
+    element.setAttribute('data-error-visible', 'true')
+    element.setAttribute('aria-invalid', 'true')
+  }
+
+  // Remove error message
+  removeFormErrorMessage (element) {
+    element.removeAttribute('data-error-visible')
+    element.removeAttribute('aria-invalid')
+  }
+
+  resetModal () {
+    this.$formFirst.value = ''
+    this.$formLast.value = ''
+    this.$formEmail.value = ''
+    this.$formMessage.value = ''
+  }
+
+  validate () {
+    this.$formFirst = document.getElementById('modal__firstname')
+    this.$formLast = document.getElementById('modal__lastname')
+    this.$formEmail = document.getElementById('modal__email')
+    this.$formMessage = document.getElementById('modal__message')
+
+    this.formIsValid = true
+
+    this.formInputIsValid(this.$formFirst, 'text')
+    this.formInputIsValid(this.$formLast, 'text')
+    this.formInputIsValid(this.$formEmail, 'email')
+    this.formInputIsValid(this.$formMessage)
+
+    if (this.formIsValid) {
+      console.log('Formulaire envoyé')
+      this.resetModal()
     }
-    
-    // Remove error message
-    removeFormErrorMessage(element){
-        element.removeAttribute('data-error-visible')
-        element.removeAttribute('aria-invalid');
-    }
+  }
 
-    resetModal() {
-        this.$formFirst.value = ""
-        this.$formLast. value = ""
-        this.$formEmail. value = ""
-        this.$formMessage.value = ""
-    }
-
-    validate () {
-        this.$formFirst = document.getElementById('modal__firstname')
-        this.$formLast = document.getElementById('modal__lastname')
-        this.$formEmail = document.getElementById('modal__email')
-        this.$formMessage = document.getElementById('modal__message')
-
-        this.formIsValid = true
-
-        this.formInputIsValid(this.$formFirst, "text")
-        this.formInputIsValid(this.$formLast, "text")
-        this.formInputIsValid(this.$formEmail, "email")
-        this.formInputIsValid(this.$formMessage)
-
-        if (this.formIsValid) {
-            console.log('Formulaire envoyé')
-            this.resetModal()
-        }
-    }
-
-    render () {
-        const dom = document.createElement('div')
-        dom.setAttribute("id", "contact_modal")
-        dom.innerHTML = `
+  render () {
+    const dom = document.createElement('div')
+    dom.setAttribute('id', 'contact_modal')
+    dom.innerHTML = `
             <div class="modal" aria-hidden="true" role="dialog">
             <header class="modal__header">
                 <h2>Contactez-moi <br/>${this.photographer.name}</h2>
@@ -182,6 +184,6 @@ class ModalContact {
             </form>
         </div>
         `
-        return dom
-    }
+    return dom
+  }
 }
