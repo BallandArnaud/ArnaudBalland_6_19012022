@@ -125,7 +125,7 @@
             }
         });
         
-        firstFocusableElement.focus();
+        lastFocusableElement.focus();
     }
 
     changeMedia (media) {

@@ -10,6 +10,7 @@ class ModalContact {
 
         this.$contactButton = document.getElementById('contactBtn')
         this.$contactModal = document.getElementById('contact_modal')
+        this.$modal = document.querySelector('.modal')
 
         this.displayModal()
         this.focusHandler()
@@ -19,7 +20,6 @@ class ModalContact {
         })
 
         document.getElementById('modal__close').addEventListener('keyup', e => {
-            console.log(e)
             if(e.key === "Enter") {
                 this.closeModal()
             }
@@ -36,17 +36,19 @@ class ModalContact {
         })
 
         this.eventHandler = e => this.keyboardHandler(e)
-        document.querySelector('.modal').addEventListener("keyup", this.eventHandler, false);
+        this.$modal.addEventListener("keyup", this.eventHandler, false);
     }
 
     displayModal() {
         this.$contactModal.style.display = "block";
+        this.$modal.setAttribute('aria-hidden', 'false')
     }
 
     closeModal () {
         this.$contactModal.style.display = "none";
         this.$contactButton.focus()
-        document.querySelector('.modal').removeEventListener('keyup', this.eventHandler)
+        this.$modal.setAttribute('aria-hidden', 'true')
+        this.$modal.removeEventListener('keyup', this.eventHandler)
     }
 
     keyboardHandler(e) {
@@ -115,12 +117,14 @@ class ModalContact {
 
     // Add error message
     addFormErrorMessage(element){
-        element.setAttribute('data-error-visible', 'true');
+        element.setAttribute('data-error-visible', 'true')
+        element.setAttribute('aria-invalid', 'true')
     }
     
     // Remove error message
     removeFormErrorMessage(element){
-        element.removeAttribute('data-error-visible');
+        element.removeAttribute('data-error-visible')
+        element.removeAttribute('aria-invalid');
     }
 
     resetModal() {
@@ -163,13 +167,13 @@ class ModalContact {
             <form id="modal__form" class="modal__form" action="#">
                 <div>
                     <label for="modal__firstname">Prénom</label>
-                    <input id="modal__firstname" name="modal__firstname" minlength="2" required />
+                    <input type="text" id="modal__firstname" name="modal__firstname" minlength="2" aria-required=true />
         
                     <label for="modal__lastname">Nom</label>
-                    <input id="modal__lastname" name="modal__lastname" minlength="2" required />
+                    <input type="text" id="modal__lastname" name="modal__lastname" minlength="2" aria-required=true />
         
                     <label for="modal__email">Email</label>
-                    <input id="modal__email" name="modal__email" minlength="2" required />
+                    <input  type="text"id="modal__email" name="modal__email" minlength="2" aria-required=true />
         
                     <label for="modal__message">Votre message</label>
                     <textarea id="modal__message" name="modal__message"></textarea>

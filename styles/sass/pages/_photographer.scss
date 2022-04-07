@@ -33,7 +33,77 @@
 
 .photograph-filter {
     margin: 20px 100px 58px;
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: bold;
 }
+
+.filter-label{
+    display: inline-block;
+    margin: 0 20px 0 0;
+  }
+  
+  .sorter{
+    position: relative;
+    color: #fff;
+  }
+  
+  .sorter-selected {
+    background: $primary-background-color;
+    position: relative;
+    padding: 5px;
+    border-radius: 5px;
+    
+    .selected {
+      display: block;
+      width: 200px;
+      padding: 20px;
+      cursor: pointer;
+    }
+  }
+  
+  .sorter-list {
+    background: $primary-background-color;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px;
+    border-radius: 5px;
+    display: none;
+    cursor: pointer;
+    z-index: 10;
+    
+    ul {
+      padding: 0;
+      margin: 0;
+    }
+    
+    &__item{
+      position: relative;
+      display: block;
+      width: 200px;
+      padding: 20px;
+      border-top: 1px solid #fff;
+      list-style-type: none;
+    }
+    
+    &__item:hover,
+    &__item:focus{
+      background: #D3573C;
+    }
+    
+    &__item:first-child{
+      border-top: 0;
+    }
+  }
+  
+  .sorter-arrow {
+    position: absolute;
+    top: 28px;
+    right: 20px;
+    cursor: pointer;
+  }
 
 .photograph-medias {
 

@@ -558,7 +558,7 @@ form div {
 }
 form input, form textarea {
   width: 100%;
-  border: none;
+  border: 3px solid transparent;
   border-radius: 5px;
 }
 form input {
@@ -618,6 +618,70 @@ form textarea[data-error-visible=true] {
 
 .photograph-filter {
   margin: 20px 100px 58px;
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.filter-label {
+  display: inline-block;
+  margin: 0 20px 0 0;
+}
+
+.sorter {
+  position: relative;
+  color: #fff;
+}
+
+.sorter-selected {
+  background: #901C1C;
+  position: relative;
+  padding: 5px;
+  border-radius: 5px;
+}
+.sorter-selected .selected {
+  display: block;
+  width: 200px;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.sorter-list {
+  background: #901C1C;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px;
+  border-radius: 5px;
+  display: none;
+  cursor: pointer;
+  z-index: 10;
+}
+.sorter-list ul {
+  padding: 0;
+  margin: 0;
+}
+.sorter-list__item {
+  position: relative;
+  display: block;
+  width: 200px;
+  padding: 20px;
+  border-top: 1px solid #fff;
+  list-style-type: none;
+}
+.sorter-list__item:hover, .sorter-list__item:focus {
+  background: #D3573C;
+}
+.sorter-list__item:first-child {
+  border-top: 0;
+}
+
+.sorter-arrow {
+  position: absolute;
+  top: 28px;
+  right: 20px;
+  cursor: pointer;
 }
 
 .photograph-medias {

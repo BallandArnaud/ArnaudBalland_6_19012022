@@ -24,19 +24,20 @@ class PhotographerPage {
         document.title = document.title + " " + photographerInformations.name
 
         this.displayPhotographerInformations(photographerInformations)
-        // Affichage du total de like demarrage page
+        
+        // Show total number of likes on page start
         this.totalMediasLikes = photographerMedias.reduce( (acc, curr) => acc + curr.likes, 0)
         document.querySelector('.totalLikes').innerHTML = this.totalMediasLikes
 
         
         this.Sorter = new SorterForm(photographerMedias, photographerInformations, 'popularity')
-        this.Sorter.render()
-        await this.Sorter.sorterMedias();
-        this.reloadAfterSorted(photographerInformations)
+        this.Sorter.init()
+        await this.Sorter.sortMedias();
+        this.reloadAfterSorting(photographerInformations)
 
-        // this.Sorter.onChangeSorter(this.reloadAfterSorted.bind(this))
-        this.Sorter.onChangeSorter(() => {
-            this.reloadAfterSorted(photographerInformations)
+        // this.Sorter.modifiedSort(this.reloadAfterSorting.bind(this))
+        this.Sorter.modifiedSort(() => {
+            this.reloadAfterSorting(photographerInformations)
         })
     
         document.getElementById('contactBtn').addEventListener('click', () => {
@@ -46,7 +47,8 @@ class PhotographerPage {
 
     }
 
-    reloadAfterSorted(photographerInformations) {
+
+    reloadAfterSorting(photographerInformations) {
         const sortedMedias = this.Sorter.getSortedMedias()
         const checkboxesHeart = Array.from(document.querySelectorAll('.media__checkbox'))
 
@@ -58,11 +60,12 @@ class PhotographerPage {
             }
         })
 
-        this.mediaListener(sortedMedias, photographerInformations)
-        this.likeListener()
+        this.addMediaListener(sortedMedias, photographerInformations)
+        this.addLikeListener()
     }
 
-    mediaListener(sortedMedias, photographerInformations) {
+
+    addMediaListener(sortedMedias, photographerInformations) {
 
         const images = document.querySelectorAll('.media__image')
         images.forEach(image => {
@@ -80,14 +83,16 @@ class PhotographerPage {
 
     }
 
+
     openLightbox(event, sortedMedias, photographerInformations) {
         const mediaId = event.target.parentNode.getAttribute('data-id')
         const lightbox = new Lightbox(sortedMedias, mediaId, photographerInformations)
         lightbox.init()
     }
 
+
     // Function add listener click and keyup on all media hearts
-    likeListener() {
+    addLikeListener() {
         const hearts = document.querySelectorAll('.media__heart')
         hearts.forEach(heart => {
             heart.addEventListener('click', e => {
@@ -102,6 +107,7 @@ class PhotographerPage {
             })
         })
     }
+
 
     likeHandler(e) {
         const sortedMedias = this.Sorter.getSortedMedias()

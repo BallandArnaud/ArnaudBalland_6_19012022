@@ -1,8 +1,7 @@
 class SorterMedias {
 
     static sorter(medias, sorterSelected) {
-        console.log('Data get from file JSON')
-
+        // console.log('Data get from file JSON')
         switch (sorterSelected) {
             case 'popularity' :
                 return [...medias].sort(function(a, b){return a.likes - b.likes})

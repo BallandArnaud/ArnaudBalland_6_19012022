@@ -5,9 +5,8 @@ class ProxySorterMedias {
     }
 
     sorter(medias, sorterSelected) {
-        // console.log({sorterSelected})
+        //  Get data from cache
         if(this.cache.has(sorterSelected)) {
-            console.log('Data get from cache')
             return this.cache.get(sorterSelected)
         }
 
