@@ -1,4 +1,7 @@
-class SorterForm {
+import { ProxySorterMedias } from '../proxy/ProxySorterMedias.js'
+import { MediasFactory } from '../factories/MediasFactory.js'
+
+export class SorterForm {
   constructor (medias, photographerInfos, sortValue) {
     this.medias = medias
     this.photographerInfos = photographerInfos
@@ -65,8 +68,6 @@ class SorterForm {
     modal.addEventListener('keydown', (e) => {
       this.catchFocus(e)
     })
-
-    // modal.removeEventListener('keydown', this.catchFocus)
   }
 
   catchFocus (e) {
@@ -78,7 +79,6 @@ class SorterForm {
     const lastFocusableElement = focusableContent[focusableContent.length - 1] // get last element to be focused inside modal
 
     const isTabPressed = e.key === 'Tab'
-    console.log(firstFocusableElement)
 
     if (e.key === 'Enter') {
       this.changeOrderOfTheSortList(e)

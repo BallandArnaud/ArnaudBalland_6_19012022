@@ -1,4 +1,4 @@
-class ImageLightbox {
+export class ImageLightbox {
     constructor(media, photographer) {
         this.media = media
         this.photographer = photographer

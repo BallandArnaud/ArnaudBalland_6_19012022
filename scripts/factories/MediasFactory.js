@@ -1,4 +1,10 @@
-class MediasFactory {
+import { ImageCard } from '../templates/ImageCard.js'
+import { VideoCard } from '../templates/VideoCard.js'
+import { ImageLightbox } from '../templates/ImageLightbox.js'
+import { VideoLightbox } from '../templates/VideoLightbox.js'
+
+
+export class MediasFactory {
     constructor(media) {
         this.media = media
     }

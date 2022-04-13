@@ -1,3 +1,6 @@
+import { PhotographerApi } from '../api/Api.js'
+import { PhotographerFactory } from '../factories/PhotographerFactory.js'
+
 class HomePage {
 
     constructor() {
@@ -9,7 +12,7 @@ class HomePage {
         const photographers = await this.photographersApi.getPhotographers()
 
         const photographersDomElements = photographers.map((photographer) => {
-            const photographerModel = new photographerFactory(photographer);
+            const photographerModel = new PhotographerFactory(photographer);
             return photographerModel.createUserCard();
         });
     

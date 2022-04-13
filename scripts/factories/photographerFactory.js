@@ -1,4 +1,4 @@
-class photographerFactory {
+export class PhotographerFactory {
     constructor(data) {
         this.name = data.name
         this.portrait = data.portrait

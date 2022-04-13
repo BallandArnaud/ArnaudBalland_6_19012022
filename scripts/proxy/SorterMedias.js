@@ -1,4 +1,4 @@
-class SorterMedias {
+export class SorterMedias {
 
     static sorter(medias, sorterSelected) {
         // console.log('Data get from file JSON')

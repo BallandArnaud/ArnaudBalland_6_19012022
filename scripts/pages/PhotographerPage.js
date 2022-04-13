@@ -1,4 +1,9 @@
-// Mettre le code JavaScript lié à la page photographer.html
+import { PhotographerApi } from '../api/Api.js'
+import { SorterForm } from '../templates/SorterForm.js'
+import { PhotographerInformation } from '../templates/PhotographerInformations.js'
+import { Lightbox } from '../templates/Lightbox.js'
+import { ModalContact} from '../templates/ModalContact.js'
+
 class PhotographerPage {
   constructor (api) {
     this.api = api
@@ -57,8 +62,8 @@ class PhotographerPage {
 
   // Function diplay all informations of the chosen photographer
   async displayPhotographerInformations (photographerInformations) {
-    this.$photographerInformationsWrapper.innerHTML = new photographerInformation(photographerInformations).renderHeader()
-    this.$bottomPhotographerInformations.innerHTML = new photographerInformation(photographerInformations).renderBottom()
+    this.$photographerInformationsWrapper.innerHTML = new PhotographerInformation(photographerInformations).renderHeader()
+    this.$bottomPhotographerInformations.innerHTML = new PhotographerInformation(photographerInformations).renderBottom()
   }
 
   reloadAfterSorting (photographerInformations) {

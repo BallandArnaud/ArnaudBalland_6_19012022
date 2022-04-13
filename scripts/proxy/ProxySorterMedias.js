@@ -1,4 +1,6 @@
-class ProxySorterMedias {
+import { SorterMedias } from './SorterMedias.js'
+
+export class ProxySorterMedias {
 
     constructor() {
         this.cache = new Map()

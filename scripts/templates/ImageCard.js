@@ -1,4 +1,4 @@
-class ImageCard {
+export class ImageCard {
     constructor(media, photographer) {
         this.media = media
         this.photographer = photographer

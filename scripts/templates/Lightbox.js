@@ -1,4 +1,6 @@
-class Lightbox {
+import { MediasFactory } from '../factories/MediasFactory.js'
+
+export class Lightbox {
   constructor (photographerMedias, mediaId, photographerInformations) {
     this.medias = photographerMedias
     this.mediaId = parseInt(mediaId)
