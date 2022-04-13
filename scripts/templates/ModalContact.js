@@ -99,15 +99,15 @@ export class ModalContact {
     const inputValue = inputElement.value
     const currentInput = inputElement.id.split('__')[1]
 
-    if (inputValue == '' || inputValue.length < 2) {
+    if (inputValue === '' || inputValue.length < 2) {
       this.formIsValid = false
       this.addFormErrorMessage(inputElement)
       console.log(`Le champs ${currentInput} est vide ou ne comporte pas assez de caractère`)
-    } else if (inputType == 'text' && regexName.test(inputValue) != true) {
+    } else if (inputType === 'text' && regexName.test(inputValue) !== true) {
       this.formIsValid = false
       this.addFormErrorMessage(inputElement)
       console.log(`Veuillez entrer des caractères valide pour le champ ${currentInput}`)
-    } else if (inputType == 'email' && regexEmail.test(inputValue) != true) {
+    } else if (inputType === 'email' && regexEmail.test(inputValue) !== true) {
       this.formIsValid = false
       this.addFormErrorMessage(inputElement)
       console.log('Veuillez entrer une adresse email valide')

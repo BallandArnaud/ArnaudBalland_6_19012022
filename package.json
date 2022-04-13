@@ -4,7 +4,8 @@
   "description": "Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.",
   "main": "index.js",
   "scripts": {
-    "sass": "sass --watch ./styles/sass/style.scss ./styles/css/style.css"
+    "sass": "sass --watch ./styles/sass/style.scss ./styles/css/style.css",
+    "lint": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/BallandArnaud/ArnaudBalland_6_19012022/issues"
   },
-  "homepage": "https://github.com/BallandArnaud/ArnaudBalland_6_19012022#readme"
+  "homepage": "https://github.com/BallandArnaud/ArnaudBalland_6_19012022#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  },
+  "dependencies": {
+    "eslint-config-standard": "^16.0.3"
+  }
 }

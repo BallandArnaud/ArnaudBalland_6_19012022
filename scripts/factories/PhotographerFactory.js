@@ -1,18 +1,18 @@
 export class PhotographerFactory {
-    constructor(data) {
-        this.name = data.name
-        this.portrait = data.portrait
-        this.id = data.id
-        this.city = data.city
-        this.country = data.country
-        this.tagline = data.tagline
-        this.price = data.price
+  constructor (data) {
+    this.name = data.name
+    this.portrait = data.portrait
+    this.id = data.id
+    this.city = data.city
+    this.country = data.country
+    this.tagline = data.tagline
+    this.price = data.price
 
-        this.picture = `assets/photographers/${this.portrait}`;
-    }
+    this.picture = `assets/photographers/${this.portrait}`
+  }
 
-    createUserCard() {
-        return  `
+  createUserCard () {
+    return `
             <article class="card-photographer">
                 <a class="card-photographer__link" href="photographer.html?id=${this.id}">
                     <img
@@ -26,5 +26,5 @@ export class PhotographerFactory {
                 <p class="card-photographer__pricePerDay">${this.price}€/jour</p>
             </article>
         `
-    }
+  }
 }

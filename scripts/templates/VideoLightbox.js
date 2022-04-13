@@ -1,13 +1,13 @@
 export class VideoLightbox {
-    constructor(media, photographer) {
-        this.media = media
-        this.photographer = photographer
-    }
+  constructor (media, photographer) {
+    this.media = media
+    this.photographer = photographer
+  }
 
-    createElement(){
-        const photographerName = this.photographer.name.split(' ')[0]
+  createElement () {
+    const photographerName = this.photographer.name.split(' ')[0]
 
-        return `
+    return `
             <video controls tabindex="0">
                 <source src="assets/images/${photographerName}/${this.media.video}" type="video/webm">
                 <source src="assets/images/${photographerName}/${this.media.video}" type="video/mp4">
@@ -15,6 +15,5 @@ export class VideoLightbox {
             </video>
             <p class="lightbox__description">${this.media.title}</p>
             `
-    }
-
+  }
 }

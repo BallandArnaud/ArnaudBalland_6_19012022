@@ -1,13 +1,13 @@
 export class VideoCard {
-    constructor(media, photographer) {
-        this.media = media
-        this.photographer = photographer
-    }
+  constructor (media, photographer) {
+    this.media = media
+    this.photographer = photographer
+  }
 
-    createElement(){
-        const photographerName = this.photographer.name.split(' ')[0]
+  createElement () {
+    const photographerName = this.photographer.name.split(' ')[0]
 
-        return `
+    return `
             <div class="media" data-id="${this.media.id}">
                 <video class="media__image" tabindex="0">
                     <source src="assets/images/${photographerName}/${this.media.video}" type="video/webm">
@@ -25,6 +25,5 @@ export class VideoCard {
                 <!--<p>${this.media.date}</p>-->
             </div>
         `
-    }
-
+  }
 }

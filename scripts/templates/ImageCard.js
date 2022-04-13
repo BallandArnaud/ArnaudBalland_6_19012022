@@ -1,13 +1,13 @@
 export class ImageCard {
-    constructor(media, photographer) {
-        this.media = media
-        this.photographer = photographer
-    }
+  constructor (media, photographer) {
+    this.media = media
+    this.photographer = photographer
+  }
 
-    createElement(){
-        const photographerName = this.photographer.name.split(' ')[0]
-        
-        return `
+  createElement () {
+    const photographerName = this.photographer.name.split(' ')[0]
+
+    return `
             <div class="media" data-id="${this.media.id}">
                 <img class="media__image" src="assets/images/${photographerName}/${this.media.image}" alt="${this.media.title}" tabindex="0"/>
                 <div class="media__caption">
@@ -21,5 +21,5 @@ export class ImageCard {
                 <!--<p>${this.media.date}</p>-->
             </div>
         `
-    }
+  }
 }

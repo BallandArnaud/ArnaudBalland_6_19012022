@@ -2,7 +2,7 @@ import { PhotographerApi } from '../api/Api.js'
 import { SorterForm } from '../templates/SorterForm.js'
 import { PhotographerInformation } from '../templates/PhotographerInformations.js'
 import { Lightbox } from '../templates/Lightbox.js'
-import { ModalContact} from '../templates/ModalContact.js'
+import { ModalContact } from '../templates/ModalContact.js'
 
 class PhotographerPage {
   constructor (api) {
@@ -57,7 +57,7 @@ class PhotographerPage {
   // Function to get all medias of the chosen photographer
   async getPhotographerMedias () {
     const medias = await this.api.getMedias()
-    return medias.filter(media => media.photographerId == this.photographerId)
+    return medias.filter(media => media.photographerId === this.photographerId)
   }
 
   // Function diplay all informations of the chosen photographer
