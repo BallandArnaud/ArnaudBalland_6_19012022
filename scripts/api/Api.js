@@ -11,10 +11,6 @@ class Api {
 }
 
 export class PhotographerApi extends Api {
-  constructor (url) {
-    super(url)
-  }
-
   async getPhotographers () {
     return this.get()
       .then(res => res.photographers)

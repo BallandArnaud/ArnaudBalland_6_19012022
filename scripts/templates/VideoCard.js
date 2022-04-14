@@ -22,7 +22,6 @@ export class VideoCard {
                         <label for="heart-${this.media.id}"><i class="fa-solid fa-heart media__heart" data-id="${this.media.id}" tabindex="0" aria-label="likes"></i></label>
                     </div>
                 </div>
-                <!--<p>${this.media.date}</p>-->
             </div>
         `
   }

@@ -149,6 +149,7 @@ export class SorterForm {
             <p class="filter-label">Trier par</p>
             <div class="sorter">
                 <div tabindex="0" class="sorter-selected" aria-haspopup="true" aria-expanded="false">
+                    <span class="only-sr">Trier par</span>
                     <span class="selected">Populaire</span>
                     <i class="fa-solid fa-angle-down sorter-arrow"></i>
                 </div>

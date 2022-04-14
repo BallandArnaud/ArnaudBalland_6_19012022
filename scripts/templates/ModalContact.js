@@ -1,7 +1,6 @@
 export class ModalContact {
   constructor (photographer) {
     this.photographer = photographer
-    this.formIsValid
   }
 
   init () {

@@ -14,7 +14,7 @@ export class MediasFactory {
     } else if (this.media.video) {
       return new VideoCard(this.media, photographer).createElement()
     } else {
-      throw 'Unknown type format'
+      throw new Error('Unknown type format')
     }
   }
 
@@ -24,7 +24,7 @@ export class MediasFactory {
     } else if (this.media.video) {
       return new VideoLightbox(this.media, photographer).createElement()
     } else {
-      throw 'Unknown type format'
+      throw new Error('Unknown type format')
     }
   }
 }
