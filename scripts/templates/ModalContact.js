@@ -9,30 +9,23 @@ export class ModalContact {
     this.$contactButton = document.getElementById('contactBtn')
     this.$contactModal = document.getElementById('contact_modal')
     this.$modal = document.querySelector('.modal')
+    this.$closeBtn = document.getElementById('modal__close')
+    this.$submitBtn = document.getElementById('modal__form')
 
     this.displayModal()
     this.focusHandler()
 
-    document.getElementById('modal__close').addEventListener('click', e => {
+    this.$closeBtn.addEventListener('click', e => {
       this.closeModal()
     })
 
-    document.getElementById('modal__close').addEventListener('keyup', e => {
+    this.$closeBtn.addEventListener('keyup', e => {
       if (e.key === 'Enter') {
         this.closeModal()
       }
     })
 
-    document.getElementById('modal__form').addEventListener('submit', e => {
-      e.preventDefault()
-      e.stopPropagation()
-
-      this.validate()
-
-      if (this.formIsValid) {
-        this.closeModal()
-      }
-    })
+    this.$submitBtn.addEventListener('submit', this.checkValidation.bind(this))
 
     this.eventHandler = e => this.keyboardHandler(e)
     this.$modal.addEventListener('keyup', this.eventHandler, false)
@@ -48,6 +41,7 @@ export class ModalContact {
     this.$contactButton.focus()
     this.$modal.setAttribute('aria-hidden', 'true')
     this.$modal.removeEventListener('keyup', this.eventHandler)
+    this.$submitBtn.removeEventListener('submit', this.checkValidation)
   }
 
   keyboardHandler (e) {
@@ -135,6 +129,17 @@ export class ModalContact {
     this.$formMessage.value = ''
   }
 
+  checkValidation (e) {
+    e.preventDefault()
+    e.stopPropagation()
+
+    this.validate()
+
+    if (this.formIsValid) {
+      this.closeModal()
+    }
+  }
+
   validate () {
     this.$formFirst = document.getElementById('modal__firstname')
     this.$formLast = document.getElementById('modal__lastname')
@@ -149,6 +154,7 @@ export class ModalContact {
     this.formInputIsValid(this.$formMessage)
 
     if (this.formIsValid) {
+      console.log('#################')
       console.log('Formulaire envoyé')
       this.resetModal()
     }
